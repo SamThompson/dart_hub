@@ -4,6 +4,8 @@ A quick and dirty Github client written in flutter.
 
 ## Screenshots
 
+![Activity feed](screenshots/feedview.png)
+
 
 ## TODO
 
