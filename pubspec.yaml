@@ -1,0 +1,20 @@
+name: dart_hub
+description: A new Flutter project.
+
+dependencies:
+  flutter:
+    sdk: flutter
+  http:
+  shared_preferences:
+  stream_ext:
+
+# For information on the generic Dart part of this file, see the
+# following page: https://www.dartlang.org/tools/pub/pubspec
+
+# The following section is specific to Flutter.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the Icons class.
+  uses-material-design: true
