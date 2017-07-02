@@ -6,43 +6,19 @@ class Event {
   final EventActor org;
   final EventRepo repo;
 
-  Event(this.id, this.type, this.actor, this.org, this.repo);
+  const Event(this.id, this.type, this.actor, this.org, this.repo);
 
   factory Event.fromJson(json) {
-    var type;
-    switch (json['type']) {
-      case 'CreateEvent':
-        type = EventType.CreateEvent;
-        break;
-      case "ForkEvent":
-        type = EventType.ForkEvent;
-        break;
-      case 'MemberEvent':
-        type = EventType.MemberEvent;
-        break;
-      case "WatchEvent":
-        type = EventType.WatchEvent;
-        break;
-      default:
-        type = EventType.Unknown;
+    if (json == null) {
+      return null;
+    } else {
+      return new Event(json['id'],
+          eventTypeFromString(json['type']),
+          new EventActor.fromJson(json['actor']),
+          new EventActor.fromJson(json['org']),
+          new EventRepo.fromJson(json['repo'])
+      );
     }
-
-    var actor;
-    if (json['actor'] != null) {
-      actor = new EventActor.fromJson(json['actor']);
-    }
-
-    var org;
-    if (json['org'] != null) {
-      org = new EventActor.fromJson(json['org']);
-    }
-
-    var repo;
-    if (json['repo'] != null) {
-      repo = new EventRepo.fromJson(json['repo']);
-    }
-
-    return new Event(json['id'], type, actor, org, repo);
   }
 
   @override
@@ -59,16 +35,40 @@ enum EventType {
   Unknown
 }
 
+EventType eventTypeFromString(String eventTypeString) {
+  switch (eventTypeString) {
+    case 'CreateEvent':
+      return EventType.CreateEvent;
+      break;
+    case "ForkEvent":
+      return EventType.ForkEvent;
+      break;
+    case 'MemberEvent':
+      return EventType.MemberEvent;
+      break;
+    case "WatchEvent":
+      return EventType.WatchEvent;
+      break;
+    default:
+      return EventType.Unknown;
+  }
+}
+
 class EventActor {
   final int id;
   final String name;
   final String login;
   final String avatarUrl;
 
-  EventActor(this.id, this.name, this.login, this.avatarUrl);
+  const EventActor(this.id, this.name, this.login, this.avatarUrl);
 
   factory EventActor.fromJson(json) {
-    return new EventActor(json['id'], json['name'], json['login'], json['avatar_url']);
+    if (json == null) {
+      return null;
+    } else {
+      return new EventActor(
+          json['id'], json['name'], json['login'], json['avatar_url']);
+    }
   }
 
   @override
@@ -82,10 +82,14 @@ class EventRepo {
   final String name;
   final String url;
 
-  EventRepo(this.id, this.name, this.url);
+  const EventRepo(this.id, this.name, this.url);
 
   factory EventRepo.fromJson(json) {
-    return new EventRepo(json['id'], json['name'], json['url']);
+    if (json == null) {
+      return null;
+    } else {
+      return new EventRepo(json['id'], json['name'], json['url']);
+    }
   }
 
   @override

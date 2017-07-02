@@ -10,26 +10,28 @@ class Repo {
   final bool fork;
   final String url;
 
-  Repo(this.id, this.owner, this.name, this.fullName, this.description,
+  const Repo(this.id, this.owner, this.name, this.fullName, this.description,
       this.private, this.fork, this.url);
 
   factory Repo.fromJson(json) {
-    return new Repo(
-        json['id'],
-        new User.fromJson(json['owner']),
-        json['name'],
-        json['full_name'],
-        json['description'],
-        json['private'],
-        json['fork'],
-        json['url']
-    );
+    if (json == null) {
+      return null;
+    } else {
+      return new Repo(
+          json['id'],
+          new User.fromJson(json['owner']),
+          json['name'],
+          json['full_name'],
+          json['description'],
+          json['private'],
+          json['fork'],
+          json['url']
+      );
+    }
   }
 
   @override
   String toString() {
     return 'Repo{id: $id, owner: $owner, name: $name, fullName: $fullName, description: $description, private: $private, fork: $fork, url: $url}';
   }
-
-
 }
