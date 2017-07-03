@@ -1,5 +1,4 @@
 import 'package:dart_hub/manager/auth_manager.dart';
-import 'package:dart_hub/manager/notif_manager.dart';
 import 'package:dart_hub/ui/followers_screen.dart';
 import 'package:dart_hub/ui/following_screen.dart';
 import 'package:dart_hub/ui/home_screen.dart';
