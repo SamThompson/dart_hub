@@ -195,7 +195,7 @@ class PaginatedListView<T> extends StatelessWidget {
   }
 
   static Widget _buildDefaultErrorView(BuildContext context, Object error) {
-    return _buildMessageView('An error occurred');
+    return _buildMessageView(error.toString());
   }
 
   static Widget _buildDefaultLoadingBumper(BuildContext context) {
