@@ -14,20 +14,15 @@ class User {
     if (json == null) {
       return null;
     } else {
-      try {
-        return new User(
-            json['id'],
-            json['name'],
-            json['login'],
-            json['avatar_url'],
-            json['public_repos'],
-            json['followers'],
-            json['following']
-        );
-      } catch (exception) {
-        print('badjson: ' + json.toString());
-        return null;
-      }
+      return new User(
+          json['id'],
+          json['name'],
+          json['login'],
+          json['avatar_url'],
+          json['public_repos'],
+          json['followers'],
+          json['following']
+      );
     }
   }
 }
