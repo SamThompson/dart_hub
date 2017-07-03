@@ -4,7 +4,7 @@ A quick and dirty Github client written in flutter.
 
 ## Screenshots
 
-![Activity feed](screenshots/feedview.png)
+![Activity feed](screenshots/feedview.png) ![Followers](screenshots/followers.png) ![Following](screenshots/following.png)
 
 
 ## TODO
@@ -13,9 +13,9 @@ A quick and dirty Github client written in flutter.
 - [x] Notifications ui which shows unread notifications
 - [x] Profile ui that shows current logged in user
 - [x] Implement pagination on list screens
+- [x] Implement follower listing view
+- [x] Implement following listing view
 - [ ] Implement repo listing view
-- [ ] Implement follower listing view
-- [ ] Implement following listing view
 - [ ] Implement showing user activity on profile
 - [ ] Activity items clickable
 - [ ] Notification items clickable

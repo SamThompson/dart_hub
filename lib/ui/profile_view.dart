@@ -53,7 +53,7 @@ class ProfileViewState extends State<ProfileView> {
     return new RefreshIndicator(
         onRefresh: _refresh,
         child: new Container(
-          margin: new EdgeInsets.all(16.0),
+          margin: new EdgeInsets.only(top: 16.0),
           child: new Column(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
@@ -101,29 +101,38 @@ class ProfileViewState extends State<ProfileView> {
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        new Padding(
+        new FlatButton(
+          onPressed: () {
+
+          },
           child: new Column(
             children: <Widget>[
               new Text(_user.publicRepos.toString()),
               new Text('Repositories')
             ],
           ),
-          padding: new EdgeInsets.only(right: 16.0),
         ),
-        new Padding(
-          child: new Column(
-            children: <Widget>[
-              new Text(_user.followers.toString()),
-              new Text('Followers')
-            ],
-          ),
-          padding: new EdgeInsets.only(right: 16.0),
+        new FlatButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/followers');
+            },
+            child: new Column(
+              children: <Widget>[
+                new Text(_user.followers.toString()),
+                new Text('Followers')
+              ],
+            )
         ),
-        new Column(
-          children: <Widget>[
-            new Text(_user.following.toString()),
-            new Text('Following')
-          ],
+        new FlatButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/following');
+            },
+            child: new Column(
+              children: <Widget>[
+                new Text(_user.following.toString()),
+                new Text('Following')
+              ],
+            )
         ),
       ],
     );
