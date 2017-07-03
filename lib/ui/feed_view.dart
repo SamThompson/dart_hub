@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:dart_hub/data/event.dart';
 import 'package:dart_hub/manager/feed_manager.dart';
+import 'package:dart_hub/ui/paginated_list_view.dart';
 import 'package:flutter/material.dart';
 
 class FeedView extends StatefulWidget {
@@ -16,53 +17,35 @@ class FeedView extends StatefulWidget {
 class FeedViewState extends State<FeedView> {
 
   final EventsManager _feedManager;
-  List<Event> _items = [];
+  FeedPaginator _paginator;
 
   FeedViewState(this._feedManager);
 
   @override
   void initState() {
     super.initState();
-    _init();
-  }
-
-  Future _init() async {
-    await _load();
-  }
-
-  Future _load() async {
-    try {
-      List<Event> items = await _feedManager.loadEvents();
-      setState(() {
-        _items.addAll(items);
-      });
-    } catch (exception) {
-      print(exception);
-    }
+    _paginator = new FeedPaginator(_feedManager);
   }
 
   Future _refresh() async {
-    setState(() {
-      _items = [];
-    });
-
-    await _load();
+    print('refresh');
+//    setState(() {
+//      _paginator = new FeedPaginator(_feedManager);
+//    });
   }
 
   @override
   Widget build(BuildContext context) {
     return new RefreshIndicator(
         onRefresh: _refresh,
-        child: new ListView.builder(
-            itemCount: _items.length,
-            itemBuilder: (BuildContext context, int index) {
-              return _buildEventTile(_items[index]);
-            }
+        child: new PaginatedListViewBuilder<Event>(
+          paginator: _paginator,
+          itemBuilder: _buildEventTile,
         )
     );
   }
 
-  Widget _buildEventTile(Event event) {
+  Widget _buildEventTile(BuildContext context, Event event) {
     var icon;
     var title;
     switch (event.type) {
@@ -91,5 +74,17 @@ class FeedViewState extends State<FeedView> {
         leading: new Icon(icon),
         title: new Text(title, style: new TextStyle(fontSize: 14.0))
     );
+  }
+}
+
+class FeedPaginator extends Paginator<Event> {
+
+  final EventsManager _feedManager;
+
+  FeedPaginator(this._feedManager);
+
+  @override
+  Future<Page<Event>> loadPage(Bookmark bookmark) {
+    return _feedManager.loadEvents().then((List<Event> events) => new Page(null, events));
   }
 }

@@ -83,7 +83,6 @@ class NotifScreenState extends State<NotifScreen> {
       builder: (BuildContext context, AsyncSnapshot<List<Notif>> snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
-            return _buildLoadingView();
           case ConnectionState.waiting:
             return _buildLoadingView();
           default:
