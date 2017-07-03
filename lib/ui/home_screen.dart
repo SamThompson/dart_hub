@@ -1,8 +1,6 @@
-import 'dart:async';
 import 'package:dart_hub/manager/auth_manager.dart';
-import 'package:dart_hub/manager/feed_manager.dart';
 import 'package:dart_hub/manager/profile_manager.dart';
-import 'package:dart_hub/ui/feed_view.dart';
+import 'package:dart_hub/ui/events_view.dart';
 import 'package:dart_hub/ui/profile_view.dart';
 import 'package:dart_hub/ui/search_view.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +30,7 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       new HomeScreenItem(
           icon: new Icon(Icons.rss_feed),
           title: new Text("Feed"),
-          content: new FeedView(new EventsManager(_authManager)),
+          content: new EventsView(_authManager),
       ),
       new HomeScreenItem(
           icon: new Icon(Icons.search),
