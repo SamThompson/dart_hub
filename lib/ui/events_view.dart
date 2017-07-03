@@ -38,7 +38,7 @@ class FeedViewState extends State<EventsView> {
   Widget build(BuildContext context) {
     return new RefreshIndicator(
         onRefresh: _refresh,
-        child: new PaginatedListViewBuilder<Event>(
+        child: new PaginatedListView<Event>(
           paginator: _paginator,
           itemBuilder: _buildEventTile,
         )

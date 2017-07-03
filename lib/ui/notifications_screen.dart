@@ -42,7 +42,7 @@ class NotifScreenState extends State<NotifScreen> {
                 onPressed: _params),
           ],
         ),
-        body: new PaginatedListViewBuilder<Notif>(
+        body: new PaginatedListView<Notif>(
           paginator: _paginator,
           itemBuilder: _buildNotifTile,
         )
