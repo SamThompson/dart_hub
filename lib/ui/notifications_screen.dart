@@ -1,33 +1,34 @@
-import 'dart:async';
 import 'package:dart_hub/data/notif.dart';
-import 'package:dart_hub/manager/notif_manager.dart';
+import 'package:dart_hub/manager/auth_manager.dart';
+import 'package:dart_hub/manager/notif_paginator.dart';
+import 'package:dart_hub/ui/paginated_list_view.dart';
 import 'package:flutter/material.dart';
 
 class NotifScreen extends StatefulWidget {
 
-  final NotifManager _notifManager;
+  final AuthManager _authManager;
 
-  NotifScreen(this._notifManager);
+  NotifScreen(this._authManager);
 
   @override
-  State<StatefulWidget> createState() => new NotifScreenState(_notifManager);
+  State<StatefulWidget> createState() => new NotifScreenState(_authManager);
 }
 
 class NotifScreenState extends State<NotifScreen> {
 
-  final NotifManager _notifManager;
+  final AuthManager _authManager;
+  NotifPaginator _paginator;
   bool _all;
   bool _participating;
-  Future<List<Notif>> _future;
 
-  NotifScreenState(this._notifManager);
+  NotifScreenState(this._authManager);
 
   @override
   void initState() {
     super.initState();
+    _paginator = new NotifPaginator(_authManager);
     _all = true;
     _participating = true;
-    _future = _notifManager.loadNotifs();
   }
 
   @override
@@ -41,7 +42,10 @@ class NotifScreenState extends State<NotifScreen> {
                 onPressed: _params),
           ],
         ),
-        body: _buildNotifsView()
+        body: new PaginatedListViewBuilder<Notif>(
+          paginator: _paginator,
+          itemBuilder: _buildNotifTile,
+        )
     );
   }
 
@@ -77,54 +81,13 @@ class NotifScreenState extends State<NotifScreen> {
     );
   }
 
-  Widget _buildNotifsView() {
-    return new FutureBuilder<List<Notif>>(
-      future: _future,
-      builder: (BuildContext context, AsyncSnapshot<List<Notif>> snapshot) {
-        switch (snapshot.connectionState) {
-          case ConnectionState.none:
-          case ConnectionState.waiting:
-            return _buildLoadingView();
-          default:
-            if (snapshot.hasError) {
-              return _buildMessageView('Error loading notifications');
-            } else {
-              return _buildListView(snapshot.data);
-            }
-        }
-      },
+  Widget _buildNotifTile(BuildContext context, Notif item) {
+    return new ListTile(
+      title: new Text(
+          item.subject.title, style: new TextStyle(fontSize: 16.0),
+          overflow: TextOverflow.ellipsis, maxLines: 2),
+      subtitle: new Text(item.repo.fullName),
+      trailing: item.unread ? new Icon(Icons.new_releases) : null,
     );
-  }
-
-  Widget _buildLoadingView() {
-    return new Center(
-        child: new CircularProgressIndicator()
-    );
-  }
-
-  Widget _buildMessageView(String message) {
-    return new Center(
-        child: new Text(message)
-    );
-  }
-
-  Widget _buildListView(List<Notif> items) {
-    if (items.length > 0) {
-      return new ListView.builder(
-          itemCount: items.length,
-          itemBuilder: (context, index) {
-            var item = items[index];
-            return new ListTile(
-              title: new Text(
-                  item.subject.title, style: new TextStyle(fontSize: 16.0),
-                  overflow: TextOverflow.ellipsis, maxLines: 2),
-              subtitle: new Text(item.repo.fullName),
-              trailing: item.unread ? new Icon(Icons.new_releases) : null,
-            );
-          }
-      );
-    } else {
-      return _buildMessageView('No notifications');
-    }
   }
 }
