@@ -1,68 +1,51 @@
 import 'dart:async';
 import 'package:dart_hub/data/event.dart';
-import 'package:dart_hub/manager/feed_manager.dart';
+import 'package:dart_hub/manager/auth_manager.dart';
+import 'package:dart_hub/manager/event_paginator.dart';
+import 'package:dart_hub/ui/paginated_list_view.dart';
 import 'package:flutter/material.dart';
 
-class FeedView extends StatefulWidget {
+class EventsView extends StatefulWidget {
 
-  final EventsManager _feedManager;
+  final AuthManager _authManager;
 
-  FeedView(this._feedManager);
+  EventsView(this._authManager);
 
   @override
-  State<StatefulWidget> createState() => new FeedViewState(_feedManager);
+  State<StatefulWidget> createState() => new FeedViewState(_authManager);
 }
 
-class FeedViewState extends State<FeedView> {
+class FeedViewState extends State<EventsView> {
 
-  final EventsManager _feedManager;
-  List<Event> _items = [];
+  final AuthManager _authManager;
+  EventsPaginator _paginator;
 
-  FeedViewState(this._feedManager);
+  FeedViewState(this._authManager);
 
   @override
   void initState() {
     super.initState();
-    _init();
-  }
-
-  Future _init() async {
-    await _load();
-  }
-
-  Future _load() async {
-    try {
-      List<Event> items = await _feedManager.loadEvents();
-      setState(() {
-        _items.addAll(items);
-      });
-    } catch (exception) {
-      print(exception);
-    }
+    _paginator = new EventsPaginator(_authManager);
   }
 
   Future _refresh() async {
     setState(() {
-      _items = [];
+      _paginator = new EventsPaginator(_authManager);
     });
-
-    await _load();
   }
 
   @override
   Widget build(BuildContext context) {
     return new RefreshIndicator(
         onRefresh: _refresh,
-        child: new ListView.builder(
-            itemCount: _items.length,
-            itemBuilder: (BuildContext context, int index) {
-              return _buildEventTile(_items[index]);
-            }
+        child: new PaginatedListViewBuilder<Event>(
+          paginator: _paginator,
+          itemBuilder: _buildEventTile,
         )
     );
   }
 
-  Widget _buildEventTile(Event event) {
+  Widget _buildEventTile(BuildContext context, Event event) {
     var icon;
     var title;
     switch (event.type) {
