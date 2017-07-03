@@ -21,7 +21,7 @@ class DartHubApp extends StatelessWidget {
         "/": (BuildContext context) => new SplashScreen(_authManager),
         "/home": (BuildContext context) => new HomeScreen(_authManager),
         "/login": (BuildContext context) => new LoginScreen(_authManager),
-        '/notifications': (BuildContext context) => new NotifScreen(new NotifManager(_authManager))
+        '/notifications': (BuildContext context) => new NotifScreen(_authManager)
       },
     );
   }

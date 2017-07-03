@@ -56,7 +56,44 @@ class Page<T> {
 }
 
 abstract class Paginator<T> {
+
+  final StreamController<Bookmark> _nextPageRequests = new StreamController<Bookmark>();
+
+  Stream<_State<T>> get stateStream => _stateStream;
+
+  Stream<_State<T>> _stateStream;
+
+  Paginator() {
+    _stateStream = _buildStateStream(_nextPageRequests);
+  }
+
   Future<Page<T>> loadPage(Bookmark bookmark);
+
+  void loadNextPage(Bookmark bookmark) {
+    _nextPageRequests.add(bookmark);
+  }
+
+  Stream<_State<T>> _buildStateStream<T>(StreamController<Bookmark> controller) {
+    return StreamExt.scan(
+        controller.stream
+            .distinct((Bookmark item1, Bookmark item2) => item1 == item2)
+            .asyncMap((Bookmark bookmark) => loadPage(bookmark)),
+        new _State(null, null),
+        _accumulate
+    );
+  }
+
+  _State<T> _accumulate<T>(_State<T> prevState, Page<T> newPage) {
+    var newItems;
+    if (prevState.items != null) {
+      prevState.items.addAll(newPage.items);
+      newItems = prevState.items;
+    } else {
+      newItems = newPage.items;
+    }
+
+    return new _State<T>(newItems, newPage.bookmark);
+  }
 }
 
 class _State<T> {
@@ -71,7 +108,7 @@ class _State<T> {
   }
 }
 
-class PaginatedListViewBuilder<T> extends StatelessWidget {
+class PaginatedListView<T> extends StatelessWidget {
 
   final Paginator<T> _paginator;
   final ItemBuilder<T> _itemBuilder;
@@ -80,7 +117,7 @@ class PaginatedListViewBuilder<T> extends StatelessWidget {
   final ErrorViewBuilder _errorViewBuilder;
   final LoadingBumperBuilder _loadingBumperBuilder;
 
-  const PaginatedListViewBuilder({
+  const PaginatedListView({
     Key key,
     @required Paginator<T> paginator,
     @required ItemBuilder<T> itemBuilder,
@@ -99,38 +136,46 @@ class PaginatedListViewBuilder<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    StreamController<Bookmark> controller = new StreamController();
-    return new _PaginatedListView<T>(
-        controller,
-        _stateStream(controller),
-        _itemBuilder,
-        _loadingViewBuilder,
-        _emptyViewBuilder,
-        _errorViewBuilder,
-        _loadingBumperBuilder
+    return new StreamBuilder<_State<T>>(
+        stream: _paginator.stateStream,
+        builder: (BuildContext context, AsyncSnapshot<_State<T>> snapshot) {
+          if (snapshot.hasError) {
+            return _errorViewBuilder(context, snapshot.error);
+          }
+
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+              return _loadingViewBuilder(context);
+            case ConnectionState.waiting:
+              _paginator.loadNextPage(new Bookmark(new Map()));
+              return _loadingViewBuilder(context);
+            case ConnectionState.active:
+            case ConnectionState.done:
+              return _buildListView(context, snapshot.data);
+            default:
+              throw "Unknown: ${snapshot.connectionState}";
+          }
+        }
     );
   }
 
-  Stream<_State<T>> _stateStream(StreamController<Bookmark> controller) {
-    return StreamExt.scan(
-        controller.stream
-            .distinct((Bookmark item1, Bookmark item2) => item1 == item2)
-            .asyncMap((Bookmark bookmark) => _paginator.loadPage(bookmark)),
-        new _State(null, null),
-        _accumulate
-    );
-  }
-
-  _State<T> _accumulate(_State<T> prevState, Page<T> newPage) {
-    var newItems;
-    if (prevState.items != null) {
-      prevState.items.addAll(newPage.items);
-      newItems = prevState.items;
+  Widget _buildListView(BuildContext context, _State<T> state) {
+    var items = state.items;
+    if (items.length > 0) {
+      return new ListView.builder(
+        itemCount: items.length + (state.nextBookmark != null ? 1 : 0),
+        itemBuilder: (context, index) {
+          if (index == items.length) {
+            _paginator.loadNextPage(state.nextBookmark);
+            return _loadingBumperBuilder(context);
+          } else {
+            return _itemBuilder(context, items[index]);
+          }
+        },
+      );
     } else {
-      newItems = newPage.items;
+      return _emptyViewBuilder(context);
     }
-
-    return new _State<T>(newItems, newPage.bookmark);
   }
 
   static Widget _buildMessageView(String message) {
@@ -160,64 +205,5 @@ class PaginatedListViewBuilder<T> extends StatelessWidget {
           child: new CircularProgressIndicator()
       ),
     );
-  }
-}
-
-class _PaginatedListView<T> extends StatelessWidget {
-
-  final StreamController<Bookmark> _controller;
-  final Stream<_State<T>> _stateStream;
-  final ItemBuilder<T> _itemBuilder;
-  final LoadingViewBuilder _loadingViewBuilder;
-  final EmptyViewBuilder _emptyViewBuilder;
-  final ErrorViewBuilder _errorViewBuilder;
-  final LoadingBumperBuilder _loadingBumperBuilder;
-
-  const _PaginatedListView(this._controller, this._stateStream,
-      this._itemBuilder, this._loadingViewBuilder, this._emptyViewBuilder,
-      this._errorViewBuilder, this._loadingBumperBuilder);
-
-  @override
-  Widget build(BuildContext context) {
-    return new StreamBuilder<_State<T>>(
-        stream: _stateStream,
-        builder: (BuildContext context, AsyncSnapshot<_State<T>> snapshot) {
-          if (snapshot.hasError) {
-            return _errorViewBuilder(context, snapshot.error);
-          }
-
-          switch (snapshot.connectionState) {
-            case ConnectionState.none:
-              return _loadingViewBuilder(context);
-            case ConnectionState.waiting:
-              _controller.add(new Bookmark(new Map()));
-              return _loadingViewBuilder(context);
-            case ConnectionState.active:
-            case ConnectionState.done:
-              return _buildListView(context, snapshot.data);
-            default:
-              throw "Unknown: ${snapshot.connectionState}";
-          }
-        }
-    );
-  }
-
-  Widget _buildListView(BuildContext context, _State<T> state) {
-    var items = state.items;
-    if (items.length > 0) {
-      return new ListView.builder(
-        itemCount: items.length + (state.nextBookmark != null ? 1 : 0),
-        itemBuilder: (context, index) {
-          if (index == items.length) {
-            _controller.add(state.nextBookmark);
-            return _loadingBumperBuilder(context);
-          } else {
-            return _itemBuilder(context, items[index]);
-          }
-        },
-      );
-    } else {
-      return _emptyViewBuilder(context);
-    }
   }
 }
