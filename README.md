@@ -1,6 +1,6 @@
 # dart_hub
 
-A quick and dirty Github client written in flutter.
+A GitHub client written in flutter.
 
 ## Screenshots
 
