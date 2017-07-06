@@ -103,7 +103,7 @@ class ProfileViewState extends State<ProfileView> {
       children: <Widget>[
         new FlatButton(
           onPressed: () {
-
+            Navigator.pushNamed(context, '/repos');
           },
           child: new Column(
             children: <Widget>[
