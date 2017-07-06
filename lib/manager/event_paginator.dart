@@ -4,8 +4,15 @@ import 'package:dart_hub/manager/base_paginator.dart';
 
 class EventsPaginator extends BasePaginator<Event> {
 
-  EventsPaginator(AuthManager authManager) : super(authManager,
-      'https://api.github.com/users/${authManager.username}/received_events');
+  EventsPaginator(AuthManager authManager, String baseUrl)
+      : super(authManager, baseUrl);
+
+  EventsPaginator.receivedEvents(AuthManager authManager, String username)
+      : this(
+      authManager, 'https://api.github.com/users/${username}/received_events');
+
+  EventsPaginator.performedEvents(AuthManager authManager, String username)
+      : this(authManager, 'https://api.github.com/users/${username}/events');
 
   @override
   Event parseItem(itemJson) {
