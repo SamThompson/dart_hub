@@ -1,77 +1,97 @@
 import 'dart:async';
+import 'package:dart_hub/data/event.dart';
 import 'package:dart_hub/data/user.dart';
+import 'package:dart_hub/manager/auth_manager.dart';
+import 'package:dart_hub/manager/event_paginator.dart';
 import 'package:dart_hub/manager/profile_manager.dart';
+import 'package:dart_hub/ui/event_tile.dart';
+import 'package:dart_hub/ui/paginated_list_view.dart';
 import 'package:flutter/material.dart';
 
 class ProfileView extends StatefulWidget {
 
+  final AuthManager _authManager;
   final ProfileManager _profileManager;
 
-  ProfileView(this._profileManager);
+  ProfileView(this._authManager, this._profileManager);
 
   @override
-  State<StatefulWidget> createState() => new ProfileViewState(_profileManager);
+  State<StatefulWidget> createState() =>
+      new ProfileViewState(_authManager, _profileManager);
 }
 
 class ProfileViewState extends State<ProfileView> {
 
+  final AuthManager _authManager;
   final ProfileManager _profileManager;
-  User _user;
+  EventsPaginator _paginator;
 
-  ProfileViewState(this._profileManager);
-
+  ProfileViewState(this._authManager, this._profileManager);
 
   @override
   void initState() {
     super.initState();
-    _load();
-  }
-
-  Future _load() async {
-    var user = await _profileManager.loadUser();
-    setState(() {
-      _user = user;
-    });
-  }
-
-  Future _refresh() async {
-    _load();
+    _paginator = new EventsPaginator.performedEvents(_authManager, _authManager.username);
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_user == null) {
-      return new Center(
-          child: new CircularProgressIndicator()
-      );
-    } else {
-      return _buildProfileView();
-    }
-  }
-
-  Widget _buildProfileView() {
-    return new RefreshIndicator(
-        onRefresh: _refresh,
-        child: new Container(
-          margin: new EdgeInsets.only(top: 16.0),
-          child: new Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              _buildUserIdentity(),
-              new Padding(
-                child: _buildUserInfo(),
-                padding: new EdgeInsets.only(top: 24.0, bottom: 8.0),
-              ),
-              new Divider()
-            ],
-          ),
-        )
+    return new Column(
+        children: <Widget>[
+          _buildProfileView(),
+          new Flexible(
+              child: new PaginatedListView<Event>(
+                paginator: _paginator,
+                itemBuilder: (BuildContext context, Event events) => new EventTile(events),
+              )
+          )
+        ]
     );
   }
 
-  Widget _buildUserIdentity() {
+  Widget _buildProfileView() {
+    return new FutureBuilder<User>(
+      future: _profileManager.loadUser(),
+      builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.none:
+          case ConnectionState.waiting:
+          default:
+            return _buildProfileHeader(snapshot.data);
+        }
+      },
+    );
+  }
+
+  Widget _buildProfileHeader(User user) {
+    user = user != null ? user : new User(
+        -1,
+        null,
+        null,
+        null,
+        0,
+        0,
+        0);
+
+    return new Container(
+      margin: new EdgeInsets.only(top: 16.0),
+      child: new Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          _buildUserIdentity(user),
+          new Padding(
+            child: _buildUserInfo(user),
+            padding: new EdgeInsets.only(top: 24.0, bottom: 8.0),
+          ),
+          new Divider()
+        ],
+      ),
+    );
+  }
+
+  Widget _buildUserIdentity(User user) {
     return new Row(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
@@ -81,7 +101,8 @@ class ProfileViewState extends State<ProfileView> {
             child: new CircleAvatar(
               radius: 40.0,
               backgroundColor: Colors.grey,
-              backgroundImage: new NetworkImage(_user.avatarUrl),
+              backgroundImage: user.avatarUrl != null ? new NetworkImage(
+                  user.avatarUrl) : null,
             ),
             padding: const EdgeInsets.only(right: 16.0),
           ),
@@ -90,18 +111,18 @@ class ProfileViewState extends State<ProfileView> {
               new Padding(
                 padding: const EdgeInsets.only(bottom: 4.0),
                 child: new Text(
-                    _user.name != null ? _user.name : '',
+                    user.name != null ? user.name : '',
                     style: new TextStyle(fontWeight: FontWeight.bold)
                 ),
               ),
-              new Text(_user.login != null ? _user.login : '')
+              new Text(user.login != null ? user.login : '')
             ],
           )
         ]
     );
   }
 
-  Widget _buildUserInfo() {
+  Widget _buildUserInfo(User user) {
     return new Row(
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.max,
@@ -113,7 +134,7 @@ class ProfileViewState extends State<ProfileView> {
           },
           child: new Column(
             children: <Widget>[
-              new Text(_user.publicRepos.toString()),
+              new Text(user.publicRepos.toString()),
               const Text('Repositories')
             ],
           ),
@@ -124,7 +145,7 @@ class ProfileViewState extends State<ProfileView> {
             },
             child: new Column(
               children: <Widget>[
-                new Text(_user.followers.toString()),
+                new Text(user.followers.toString()),
                 const Text('Followers')
               ],
             )
@@ -135,7 +156,7 @@ class ProfileViewState extends State<ProfileView> {
             },
             child: new Column(
               children: <Widget>[
-                new Text(_user.following.toString()),
+                new Text(user.following.toString()),
                 const Text('Following')
               ],
             )
