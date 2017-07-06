@@ -1,6 +1,7 @@
 import 'package:dart_hub/manager/auth_manager.dart';
 import 'package:dart_hub/manager/profile_manager.dart';
 import 'package:dart_hub/ui/events_view.dart';
+import 'package:dart_hub/ui/notif_view.dart';
 import 'package:dart_hub/ui/profile_view.dart';
 import 'package:dart_hub/ui/search_view.dart';
 import 'package:flutter/material.dart';
@@ -28,19 +29,24 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     super.initState();
     _homeScreenItems = [
       new HomeScreenItem(
-          icon: new Icon(Icons.rss_feed),
-          title: new Text("Feed"),
-          content: new EventsView(_authManager),
+        icon: const Icon(Icons.rss_feed),
+        title: const Text('Feed'),
+        content: new EventsView(_authManager),
       ),
       new HomeScreenItem(
-          icon: new Icon(Icons.search),
-          title: new Text("Search"),
-          content: new SearchView(),
+        icon: const Icon(Icons.search),
+        title: const Text('Search'),
+        content: new SearchView(),
       ),
       new HomeScreenItem(
-          icon: new Icon(Icons.person),
-          title: new Text("Profile"),
-          content: new ProfileView(new ProfileManager(_authManager)),
+          icon: const Icon(Icons.notifications),
+          title: const Text('Alerts'),
+          content: new NotifView(_authManager)
+      ),
+      new HomeScreenItem(
+        icon: const Icon(Icons.person),
+        title: const Text('Profile'),
+        content: new ProfileView(new ProfileManager(_authManager)),
       )
     ];
   }
@@ -49,10 +55,6 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     setState(() {
       _currentIndex = selected;
     });
-  }
-
-  void _notif() {
-    Navigator.pushNamed(context, '/notifications');
   }
 
   void _overflow(OverflowItem selected) {
@@ -72,9 +74,6 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       appBar: new AppBar(
         title: new Text('DartHub'),
         actions: [
-          new IconButton(
-              icon: const Icon(Icons.notifications, color: Colors.white),
-              onPressed: _notif),
           new PopupMenuButton<OverflowItem>(
               onSelected: _overflow,
               itemBuilder: (BuildContext context) {
