@@ -4,7 +4,7 @@ A GitHub client written in flutter.
 
 ## Screenshots
 
-![Activity feed](screenshots/feedview.png) ![Followers](screenshots/followers.png) ![Following](screenshots/following.png)
+![Activity feed](screenshots/feedview.png) ![Repositories](screenshots/repos.png) ![Followers](screenshots/followers.png) ![Following](screenshots/following.png)
 
 
 ## TODO
@@ -16,7 +16,7 @@ A GitHub client written in flutter.
 - [x] Implement follower listing view
 - [x] Implement following listing view
 - [x] Move notifications in between search and profile
-- [ ] Implement repo listing view
+- [x] Implement repo listing view
 - [ ] Implement showing user activity on profile
 - [ ] Activity items clickable
 - [ ] Notification items clickable
