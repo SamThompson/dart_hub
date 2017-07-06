@@ -17,7 +17,7 @@ A GitHub client written in flutter.
 - [x] Implement following listing view
 - [x] Move notifications in between search and profile
 - [x] Implement repo listing view
-- [ ] Implement showing user activity on profile
+- [x] Implement showing user activity on profile
 - [ ] Activity items clickable
 - [ ] Notification items clickable
 - [ ] Support comments in activity feed
