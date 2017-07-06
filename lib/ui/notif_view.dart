@@ -32,6 +32,7 @@ class NotifScreenState extends State<NotifView> {
     return new PaginatedListView<Notif>(
       paginator: _paginator,
       itemBuilder: _buildNotifTile,
+      emptyViewBuilder: _buildEmptyView
     );
   }
 
@@ -42,6 +43,12 @@ class NotifScreenState extends State<NotifView> {
           overflow: TextOverflow.ellipsis, maxLines: 2),
       subtitle: new Text(item.repo.fullName),
       trailing: item.unread ? new Icon(Icons.new_releases) : null,
+    );
+  }
+
+  Widget _buildEmptyView(BuildContext context) {
+    return new Center(
+        child: new Text('No notifications')
     );
   }
 }

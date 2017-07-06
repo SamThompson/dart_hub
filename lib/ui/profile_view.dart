@@ -83,11 +83,17 @@ class ProfileViewState extends State<ProfileView> {
               backgroundColor: Colors.grey,
               backgroundImage: new NetworkImage(_user.avatarUrl),
             ),
-            padding: new EdgeInsets.only(right: 16.0),
+            padding: const EdgeInsets.only(right: 16.0),
           ),
           new Column(
             children: <Widget>[
-              new Text(_user.name != null ? _user.name : ''),
+              new Padding(
+                padding: const EdgeInsets.only(bottom: 4.0),
+                child: new Text(
+                    _user.name != null ? _user.name : '',
+                    style: new TextStyle(fontWeight: FontWeight.bold)
+                ),
+              ),
               new Text(_user.login != null ? _user.login : '')
             ],
           )
@@ -108,7 +114,7 @@ class ProfileViewState extends State<ProfileView> {
           child: new Column(
             children: <Widget>[
               new Text(_user.publicRepos.toString()),
-              new Text('Repositories')
+              const Text('Repositories')
             ],
           ),
         ),
@@ -119,7 +125,7 @@ class ProfileViewState extends State<ProfileView> {
             child: new Column(
               children: <Widget>[
                 new Text(_user.followers.toString()),
-                new Text('Followers')
+                const Text('Followers')
               ],
             )
         ),
@@ -130,7 +136,7 @@ class ProfileViewState extends State<ProfileView> {
             child: new Column(
               children: <Widget>[
                 new Text(_user.following.toString()),
-                new Text('Following')
+                const Text('Following')
               ],
             )
         ),
