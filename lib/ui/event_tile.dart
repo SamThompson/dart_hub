@@ -50,7 +50,8 @@ class EventTile extends StatelessWidget {
 
     return new ListTile(
         leading: new Icon(icon),
-        title: new Text(title, style: new TextStyle(fontSize: 14.0))
+        dense: true,
+        title: new Text(title, overflow: TextOverflow.ellipsis, maxLines: 2)
     );
   }
 
