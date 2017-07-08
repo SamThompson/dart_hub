@@ -16,7 +16,11 @@ You can create an oauth api project [here](https://github.com/settings/applicati
 
 ## Screenshots
 
-![Activity feed](screenshots/feedview.png) ![Repositories](screenshots/repos.png) ![Followers](screenshots/followers.png) ![Following](screenshots/following.png)
+### Feed
+![Activity feed](screenshots/feedview.png) 
+
+### Profile
+![Profile](screenshots/profile.png) ![Repositories](screenshots/repos.png) ![Followers](screenshots/followers.png) ![Following](screenshots/following.png)
 
 
 ## TODO
