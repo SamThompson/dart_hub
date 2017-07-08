@@ -1,5 +1,5 @@
 name: dart_hub
-description: A new Flutter project.
+description: A GitHub client written in Flutter
 
 dependencies:
   flutter:
