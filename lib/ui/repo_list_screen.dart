@@ -7,33 +7,42 @@ import 'package:flutter/material.dart';
 
 class RepoListScreen extends StatefulWidget {
 
-  final AuthManager _authManager;
-  final String _userName;
+  final RepoListPaginatorFactory _paginatorFactory;
+  final String _username;
 
-  RepoListScreen(this._authManager, this._userName);
+  RepoListScreen(this._paginatorFactory, this._username);
 
   @override
-  State<StatefulWidget> createState() => new RepoListScreenState(_authManager);
+  State<StatefulWidget> createState() =>
+      new RepoListScreenState(_paginatorFactory, _username);
 }
 
 class RepoListScreenState extends State<RepoListScreen> {
 
-  final AuthManager _authManager;
+  final RepoListPaginatorFactory _paginatorFactory;
+  final String _username;
   RepoListPaginator _paginator;
 
-  RepoListScreenState(this._authManager);
+  RepoListScreenState(this._paginatorFactory, this._username);
 
   @override
   void initState() {
     super.initState();
-    _paginator = new RepoListPaginator.reposForLoggedInUser(_authManager);
+    _paginator = _paginatorFactory.buildPaginatorForUser(_username);
   }
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('Repositories'),
+        title: new Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              new Text('${_username}'),
+              new Text('Repositories', style: new TextStyle(fontSize: 12.0))
+            ]
+        ),
         actions: [
 //          new IconButton(
 //              icon: const Icon(Icons.sort, color: Colors.white),
@@ -53,15 +62,18 @@ class RepoListScreenState extends State<RepoListScreen> {
 
   Future _refresh() async {
     setState(() {
-      _paginator = new RepoListPaginator.reposForLoggedInUser(_authManager);
+      _paginator = _paginatorFactory.buildPaginatorForUser(_username);
     });
   }
 
   Widget _buildFollowerTile(BuildContext context, Repo repo) {
     return new ListTile(
       title: new Text(repo.name),
-      subtitle: new Text(repo.description != null ? repo.description : '', overflow: TextOverflow.ellipsis),
-      trailing: repo.private ? const Icon(Icons.lock, color: Colors.grey) : null,
+      subtitle: new Text(repo.description != null ? repo.description : '',
+          overflow: TextOverflow.ellipsis),
+      trailing: repo.private
+          ? const Icon(Icons.lock, color: Colors.grey)
+          : null,
     );
   }
 }

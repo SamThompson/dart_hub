@@ -19,3 +19,18 @@ class RepoListPaginator extends BasePaginator<Repo> {
     return new Repo.fromJson(itemJson);
   }
 }
+
+class RepoListPaginatorFactory {
+  
+  final AuthManager _authManager;
+
+  RepoListPaginatorFactory(this._authManager);
+
+  RepoListPaginator buildPaginatorForUser(String username) {
+    if (username == null) {
+      return new RepoListPaginator.reposForLoggedInUser(_authManager);
+    } else {
+      return new RepoListPaginator.reposForUsername(_authManager, username);
+    }
+  }
+}

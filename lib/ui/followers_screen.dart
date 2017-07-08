@@ -35,7 +35,14 @@ class FollowersScreenState extends State<FollowersScreen> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('Followers'),
+        title: new Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            new Text('${_username}'),
+            new Text('Followers', style: new TextStyle(fontSize: 12.0))
+          ]
+      ),
       ),
       body: new RefreshIndicator(
           onRefresh: _refresh,
