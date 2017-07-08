@@ -1,30 +1,30 @@
 import 'package:dart_hub/data/notif.dart';
-import 'package:dart_hub/manager/auth_manager.dart';
 import 'package:dart_hub/manager/notif_paginator.dart';
 import 'package:dart_hub/ui/paginated_list_view.dart';
 import 'package:flutter/material.dart';
 
 class NotifView extends StatefulWidget {
 
-  final AuthManager _authManager;
+  final NotifPaginatorFactory _paginatorFactory;
 
-  NotifView(this._authManager);
+  NotifView(this._paginatorFactory);
 
   @override
-  State<StatefulWidget> createState() => new NotifScreenState(_authManager);
+  State<StatefulWidget> createState() =>
+      new NotifScreenState(_paginatorFactory);
 }
 
 class NotifScreenState extends State<NotifView> {
 
-  final AuthManager _authManager;
+  final NotifPaginatorFactory _paginatorFactory;
   NotifPaginator _paginator;
 
-  NotifScreenState(this._authManager);
+  NotifScreenState(this._paginatorFactory);
 
   @override
   void initState() {
     super.initState();
-    _paginator = new NotifPaginator(_authManager);
+    _paginator = _paginatorFactory.buildNotifPaginator();
   }
 
   @override

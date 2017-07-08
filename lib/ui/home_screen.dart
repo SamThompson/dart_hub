@@ -1,4 +1,6 @@
 import 'package:dart_hub/manager/auth_manager.dart';
+import 'package:dart_hub/manager/event_paginator.dart';
+import 'package:dart_hub/manager/notif_paginator.dart';
 import 'package:dart_hub/manager/profile_manager.dart';
 import 'package:dart_hub/ui/events_view.dart';
 import 'package:dart_hub/ui/notif_view.dart';
@@ -31,7 +33,10 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       new HomeScreenItem(
         icon: const Icon(Icons.rss_feed),
         title: const Text('Feed'),
-        content: new EventsView(_authManager),
+        content: new EventsView(
+            new EventsPaginatorFactory(_authManager),
+            _authManager.username
+        )
       ),
       new HomeScreenItem(
         icon: const Icon(Icons.search),
@@ -41,12 +46,16 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       new HomeScreenItem(
           icon: const Icon(Icons.notifications),
           title: const Text('Alerts'),
-          content: new NotifView(_authManager)
+          content: new NotifView(new NotifPaginatorFactory(_authManager))
       ),
       new HomeScreenItem(
         icon: const Icon(Icons.person),
         title: const Text('Profile'),
-        content: new ProfileView(_authManager, new ProfileManager(_authManager)),
+        content: new ProfileView(
+            new ProfileManager(_authManager),
+            new EventsPaginatorFactory(_authManager),
+            _authManager.username
+        ),
       )
     ];
   }

@@ -12,3 +12,13 @@ class NotifPaginator extends BasePaginator<Notif> {
     return new Notif.fromJson(itemJson);
   }
 }
+
+class NotifPaginatorFactory {
+  final AuthManager _authManager;
+
+  NotifPaginatorFactory(this._authManager);
+
+  NotifPaginator buildNotifPaginator() {
+    return new NotifPaginator(_authManager);
+  }
+}

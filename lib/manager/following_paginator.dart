@@ -18,3 +18,18 @@ class FollowingPaginator extends BasePaginator<User> {
     return new User.fromJson(itemJson);
   }
 }
+
+class FollowingPaginatorFactory {
+
+  final AuthManager _authManager;
+
+  FollowingPaginatorFactory(this._authManager);
+
+  FollowingPaginator buildPaginatorForUser(String username) {
+    if (username == null) {
+      return new FollowingPaginator.followingForLoggedInUser(_authManager);
+    } else {
+      return new FollowingPaginator.followingForUsername(_authManager, username);
+    }
+  }
+}

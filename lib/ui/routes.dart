@@ -1,4 +1,6 @@
 import 'package:dart_hub/manager/auth_manager.dart';
+import 'package:dart_hub/manager/followers_paginator.dart';
+import 'package:dart_hub/manager/following_paginator.dart';
 import 'package:dart_hub/ui/followers_screen.dart';
 import 'package:dart_hub/ui/following_screen.dart';
 import 'package:dart_hub/ui/repo_list_screen.dart';
@@ -28,11 +30,11 @@ HandlerFunc buildRepoListHandler(AuthManager authManager) {
 }
 
 HandlerFunc buildFollowersHandler(AuthManager authManager) {
-  return (BuildContext context, Map<String, dynamic> params) => new FollowersScreen(authManager, params['username']);
+  return (BuildContext context, Map<String, dynamic> params) => new FollowersScreen(new FollowersPaginatorFactory(authManager), params['username']);
 }
 
 HandlerFunc buildFollowingHandler(AuthManager authManager) {
-  return (BuildContext context, Map<String, dynamic> params) => new FollowingScreen(authManager, params['username']);
+  return (BuildContext context, Map<String, dynamic> params) => new FollowingScreen(new FollowingPaginatorFactory(authManager), params['username']);
 }
 
 HandlerFunc buildRepoHandler() {

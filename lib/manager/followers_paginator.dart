@@ -19,3 +19,18 @@ class FollowersPaginator extends BasePaginator<User> {
     return new User.fromJson(itemJson);
   }
 }
+
+class FollowersPaginatorFactory {
+
+  final AuthManager _authManager;
+
+  FollowersPaginatorFactory(this._authManager);
+
+  FollowersPaginator buildPaginatorForUser(String username) {
+    if (username == null) {
+      return new FollowersPaginator.followersForLoggedInUser(_authManager);
+    } else {
+      return new FollowersPaginator.followersForUsername(_authManager, username);
+    }
+  }
+}

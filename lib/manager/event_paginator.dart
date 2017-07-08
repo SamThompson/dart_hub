@@ -19,3 +19,17 @@ class EventsPaginator extends BasePaginator<Event> {
     return new Event.fromJson(itemJson);
   }
 }
+
+class EventsPaginatorFactory {
+  final AuthManager _authManager;
+
+  EventsPaginatorFactory(this._authManager);
+
+  EventsPaginator buildPaginatorForReceivedEvents(String username) {
+    return new EventsPaginator.receivedEvents(_authManager, username);
+  }
+
+  EventsPaginator buildPaginatorForPerformedEvents(String username) {
+    return new EventsPaginator.performedEvents(_authManager, username);
+  }
+}
