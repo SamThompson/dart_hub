@@ -13,7 +13,8 @@ class FollowingScreen extends StatefulWidget {
   FollowingScreen(this._paginatorFactory, this._username);
 
   @override
-  State<StatefulWidget> createState() => new FollowingScreenState(_paginatorFactory, _username);
+  State<StatefulWidget> createState() =>
+      new FollowingScreenState(_paginatorFactory, _username);
 }
 
 class FollowingScreenState extends State<FollowingScreen> {
@@ -35,7 +36,14 @@ class FollowingScreenState extends State<FollowingScreen> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('Following'),
+          title: new Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                new Text('${_username}'),
+                new Text('Following', style: new TextStyle(fontSize: 12.0))
+              ]
+          )
       ),
       body: new RefreshIndicator(
           onRefresh: _refresh,
