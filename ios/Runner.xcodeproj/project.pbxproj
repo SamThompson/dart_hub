@@ -982,7 +982,7 @@ fi
 					<string>$(PROJECT_DIR)/Flutter</string>
 				</array>
 				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>com.yourcompany.dartHub</string>
+				<string>me.samthompson.dartHub</string>
 				<key>PRODUCT_NAME</key>
 				<string>$(TARGET_NAME)</string>
 			</dict>
@@ -1018,7 +1018,7 @@ fi
 					<string>$(PROJECT_DIR)/Flutter</string>
 				</array>
 				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>com.yourcompany.dartHub</string>
+				<string>me.samthompson.dartHub</string>
 				<key>PRODUCT_NAME</key>
 				<string>$(TARGET_NAME)</string>
 			</dict>

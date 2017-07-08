@@ -1,4 +1,4 @@
-package com.yourcompany.darthub;
+package me.samthompson.darthub;
 
 import android.os.Bundle;
 
