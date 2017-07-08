@@ -17,7 +17,7 @@ You can create an oauth api project [here](https://github.com/settings/applicati
 ## Screenshots
 
 ### Feed
-![Activity feed](screenshots/feedview.png) 
+![Activity feed](screenshots/feed.png) 
 
 ### Profile
 ![Profile](screenshots/profile.png) ![Repositories](screenshots/repos.png) ![Followers](screenshots/followers.png) ![Following](screenshots/following.png)
@@ -34,10 +34,11 @@ You can create an oauth api project [here](https://github.com/settings/applicati
 - [x] Move notifications in between search and profile
 - [x] Implement repo listing view
 - [x] Implement showing user activity on profile
-- [ ] Activity items clickable
-- [ ] Notification items clickable
-- [ ] Support comments in activity feed
+- [ ] Event items clickable
+- [ ] Notif items clickable
 - [ ] Repository screen
-- [ ] Finish up supporting different parameters for notifications
+- [ ] Add ui for filter parameters on notifs, repos, etc
 - [ ] Implement search view
 - [ ] File viewer
+- [ ] Support more event types
+
