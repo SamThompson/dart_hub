@@ -7,26 +7,28 @@ import 'package:flutter/material.dart';
 
 class FollowingScreen extends StatefulWidget {
 
-  final AuthManager _authManager;
+  final FollowingPaginatorFactory _paginatorFactory;
   final String _username;
 
-  FollowingScreen(this._authManager, this._username);
+  FollowingScreen(this._paginatorFactory, this._username);
 
   @override
-  State<StatefulWidget> createState() => new FollowingScreenState(_authManager);
+  State<StatefulWidget> createState() => new FollowingScreenState(_paginatorFactory, _username);
 }
 
 class FollowingScreenState extends State<FollowingScreen> {
 
-  final AuthManager _authManager;
+  final FollowingPaginatorFactory _paginatorFactory;
+  final String _username;
+
   FollowingPaginator _paginator;
 
-  FollowingScreenState(this._authManager);
+  FollowingScreenState(this._paginatorFactory, this._username);
 
   @override
   void initState() {
     super.initState();
-    _paginator = new FollowingPaginator.followingForLoggedInUser(_authManager);
+    _paginator = _paginatorFactory.buildPaginatorForUser(_username);
   }
 
   @override
@@ -47,8 +49,7 @@ class FollowingScreenState extends State<FollowingScreen> {
 
   Future _refresh() async {
     setState(() {
-      _paginator =
-      new FollowingPaginator.followingForLoggedInUser(_authManager);
+      _paginator = _paginatorFactory.buildPaginatorForUser(_username);
     });
   }
 

@@ -1,6 +1,5 @@
 import 'package:dart_hub/data/event.dart';
 import 'package:dart_hub/data/user.dart';
-import 'package:dart_hub/manager/auth_manager.dart';
 import 'package:dart_hub/manager/event_paginator.dart';
 import 'package:dart_hub/manager/profile_manager.dart';
 import 'package:dart_hub/ui/event_tile.dart';
@@ -9,28 +8,33 @@ import 'package:flutter/material.dart';
 
 class ProfileView extends StatefulWidget {
 
-  final AuthManager _authManager;
   final ProfileManager _profileManager;
+  final EventsPaginatorFactory _paginatorFactory;
+  final String _username;
 
-  ProfileView(this._authManager, this._profileManager);
+  ProfileView(this._profileManager, this._paginatorFactory, this._username);
 
   @override
   State<StatefulWidget> createState() =>
-      new ProfileViewState(_authManager, _profileManager);
+      new ProfileViewState(_profileManager, _paginatorFactory, _username);
 }
 
 class ProfileViewState extends State<ProfileView> {
 
-  final AuthManager _authManager;
   final ProfileManager _profileManager;
+  final EventsPaginatorFactory _paginatorFactory;
+  final String _username;
+
   EventsPaginator _paginator;
 
-  ProfileViewState(this._authManager, this._profileManager);
+  ProfileViewState(this._profileManager,
+      this._paginatorFactory,
+      this._username);
 
   @override
   void initState() {
     super.initState();
-    _paginator = new EventsPaginator.performedEvents(_authManager, _authManager.username);
+    _paginator = _paginatorFactory.buildPaginatorForPerformedEvents(_username);
   }
 
   @override
