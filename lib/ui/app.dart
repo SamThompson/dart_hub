@@ -1,15 +1,17 @@
 import 'package:dart_hub/manager/auth_manager.dart';
-import 'package:dart_hub/ui/followers_screen.dart';
-import 'package:dart_hub/ui/following_screen.dart';
-import 'package:dart_hub/ui/home_screen.dart';
-import 'package:dart_hub/ui/login_screen.dart';
-import 'package:dart_hub/ui/repo_list_screen.dart';
+import 'package:dart_hub/ui/routes.dart';
 import 'package:dart_hub/ui/splash_screen.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 
 class DartHubApp extends StatelessWidget {
 
+  final Router router = new Router();
   final AuthManager _authManager = new AuthManager();
+
+  DartHubApp() {
+    configureRouter(router, _authManager);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,14 +20,10 @@ class DartHubApp extends StatelessWidget {
       theme: new ThemeData(
         primarySwatch: Colors.blue,
       ),
-      routes: <String, WidgetBuilder>{
-        '/': (BuildContext context) => new SplashScreen(_authManager),
-        '/home': (BuildContext context) => new HomeScreen(_authManager),
-        '/login': (BuildContext context) => new LoginScreen(_authManager),
-        '/repos': (BuildContext context) => new RepoListScreen(_authManager),
-        '/followers': (BuildContext context) => new FollowersScreen(_authManager),
-        '/following': (BuildContext context) => new FollowingScreen(_authManager)
-      },
+      home: new SplashScreen(_authManager),
+      onGenerateRoute: router.generator,
     );
   }
 }
+
+

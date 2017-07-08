@@ -8,8 +8,9 @@ import 'package:flutter/material.dart';
 class RepoListScreen extends StatefulWidget {
 
   final AuthManager _authManager;
+  final String _userName;
 
-  RepoListScreen(this._authManager);
+  RepoListScreen(this._authManager, this._userName);
 
   @override
   State<StatefulWidget> createState() => new RepoListScreenState(_authManager);

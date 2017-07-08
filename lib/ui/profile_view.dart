@@ -129,7 +129,7 @@ class ProfileViewState extends State<ProfileView> {
       children: <Widget>[
         new FlatButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/repos');
+            Navigator.pushNamed(context, '/user/repos');
           },
           child: new Column(
             children: <Widget>[
@@ -140,7 +140,7 @@ class ProfileViewState extends State<ProfileView> {
         ),
         new FlatButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/followers');
+              Navigator.pushNamed(context, '/user/followers');
             },
             child: new Column(
               children: <Widget>[
@@ -151,7 +151,7 @@ class ProfileViewState extends State<ProfileView> {
         ),
         new FlatButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/following');
+              Navigator.pushNamed(context, '/user/following');
             },
             child: new Column(
               children: <Widget>[
