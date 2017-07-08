@@ -8,8 +8,9 @@ import 'package:flutter/material.dart';
 class FollowersScreen extends StatefulWidget {
 
   final AuthManager _authManager;
+  final String _username;
 
-  FollowersScreen(this._authManager);
+  FollowersScreen(this._authManager, this._username);
 
   @override
   State<StatefulWidget> createState() => new FollowersScreenState(_authManager);
@@ -31,9 +32,9 @@ class FollowersScreenState extends State<FollowersScreen> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        appBar: new AppBar(
-          title: new Text('Followers'),
-        ),
+      appBar: new AppBar(
+        title: new Text('Followers'),
+      ),
       body: new RefreshIndicator(
           onRefresh: _refresh,
           child: new PaginatedListView<User>(

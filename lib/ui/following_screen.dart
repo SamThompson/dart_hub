@@ -8,8 +8,9 @@ import 'package:flutter/material.dart';
 class FollowingScreen extends StatefulWidget {
 
   final AuthManager _authManager;
+  final String _username;
 
-  FollowingScreen(this._authManager);
+  FollowingScreen(this._authManager, this._username);
 
   @override
   State<StatefulWidget> createState() => new FollowingScreenState(_authManager);
