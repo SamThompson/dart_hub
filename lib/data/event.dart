@@ -1,3 +1,5 @@
+import 'package:dart_hub/data/pull_request.dart';
+
 class Event {
 
   final String id;
@@ -5,8 +7,10 @@ class Event {
   final EventActor actor;
   final EventActor org;
   final EventRepo repo;
+  final EventPayload payload;
 
-  const Event(this.id, this.type, this.actor, this.org, this.repo);
+  const Event(this.id, this.type, this.actor, this.org, this.repo,
+      this.payload);
 
   factory Event.fromJson(json) {
     if (json == null) {
@@ -16,7 +20,8 @@ class Event {
           eventTypeFromString(json['type']),
           new EventActor.fromJson(json['actor']),
           new EventActor.fromJson(json['org']),
-          new EventRepo.fromJson(json['repo'])
+          new EventRepo.fromJson(json['repo']),
+          new EventPayload.fromJson(json['payload'])
       );
     }
   }
@@ -29,7 +34,10 @@ class Event {
 
 enum EventType {
   CreateEvent,
+  DeleteEvent,
   ForkEvent,
+  PullRequestEvent,
+  PushEvent,
   MemberEvent,
   WatchEvent,
   Unknown
@@ -39,16 +47,18 @@ EventType eventTypeFromString(String eventTypeString) {
   switch (eventTypeString) {
     case 'CreateEvent':
       return EventType.CreateEvent;
-      break;
-    case "ForkEvent":
+    case 'DeleteEvent':
+      return EventType.DeleteEvent;
+    case 'ForkEvent':
       return EventType.ForkEvent;
-      break;
+    case 'PushEvent':
+      return EventType.PushEvent;
+    case 'PullRequestEvent':
+      return EventType.PullRequestEvent;
     case 'MemberEvent':
       return EventType.MemberEvent;
-      break;
-    case "WatchEvent":
+    case 'WatchEvent':
       return EventType.WatchEvent;
-      break;
     default:
       return EventType.Unknown;
   }
@@ -95,5 +105,70 @@ class EventRepo {
   @override
   String toString() {
     return 'EventRepo{id: $id, name: $name, url: $url}';
+  }
+}
+
+enum EventPayloadType {
+  Branch,
+  User,
+  Unknown
+}
+
+EventPayloadType eventPayloadTypeFromString(String eventPayloadTypeString) {
+  switch (eventPayloadTypeString) {
+    case 'branch':
+      return EventPayloadType.Branch;
+    case 'user':
+      return EventPayloadType.User;
+    default:
+      return EventPayloadType.Unknown;
+  }
+}
+
+enum EventActionType {
+  Closed,
+  Opened,
+  Unknown
+}
+
+EventActionType eventActionTypeFromString(String eventActionTypeString) {
+  switch (eventActionTypeString) {
+    case 'closed':
+      return EventActionType.Closed;
+    case 'opened':
+      return EventActionType.Opened;
+    default:
+      return EventActionType.Unknown;
+  }
+}
+
+class EventPayload {
+  final EventActionType action;
+  final String ref;
+  final EventPayloadType refType;
+  final EventPayloadType pusherType;
+  final String description;
+  final int number;
+  final int size;
+  final PullRequest pullRequest;
+
+  EventPayload(this.action, this.ref, this.refType, this.pusherType,
+      this.description, this.number, this.size, this.pullRequest);
+
+  factory EventPayload.fromJson(json) {
+    if (json == null) {
+      return null;
+    } else {
+      return new EventPayload(
+          eventActionTypeFromString(json['action']),
+          json['ref'],
+          eventPayloadTypeFromString(json['ref_type']),
+          eventPayloadTypeFromString(json['pusher_type']),
+          json['description'],
+          json['number'],
+          json['size'],
+          new PullRequest.fromJson(json['pull_request'])
+      );
+    }
   }
 }
