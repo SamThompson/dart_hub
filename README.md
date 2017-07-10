@@ -1,6 +1,6 @@
 # dart_hub
 
-A GitHub client written in flutter.
+A GitHub client written in flutter. The goal of this project is to build something non-trivial in Flutter to flex the framework's muscles.
 
 ## Building
 
@@ -42,3 +42,7 @@ You can create an oauth api project [here](https://github.com/settings/applicati
 - [ ] File viewer
 - [ ] Support more event types
 
+
+## Contributing
+
+This project is moving pretty fast and I'm doing a lot of development on master. Ideas and feedback are always welcome, feel free to open an issue to discuss 😄
