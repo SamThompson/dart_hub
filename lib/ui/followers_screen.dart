@@ -67,6 +67,7 @@ class FollowersScreenState extends State<FollowersScreen> {
           backgroundColor: Colors.grey
       ),
       title: new Text(user.login),
+      onTap: () => Navigator.pushNamed(context, '/users/${user.login}')
     );
   }
 }

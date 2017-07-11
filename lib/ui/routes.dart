@@ -29,9 +29,9 @@ HandlerFunc buildHomeHandler(AuthManager authManager) {
 HandlerFunc buildUserHandler(AuthManager authManager) {
   return (BuildContext context, Map<String, dynamic> params) =>
   new ProfileScreen(
-      new ProfileManager(authManager),
+      new ProfileManager(authManager, params['username']),
       new EventsPaginatorFactory(authManager),
-      params['user']);
+      params['username']);
 }
 
 HandlerFunc buildRepoListHandler(AuthManager authManager) {
