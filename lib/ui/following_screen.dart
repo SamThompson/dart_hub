@@ -14,17 +14,17 @@ class FollowingScreen extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() =>
-      new FollowingScreenState(_paginatorFactory, _username);
+      new _FollowingScreenState(_paginatorFactory, _username);
 }
 
-class FollowingScreenState extends State<FollowingScreen> {
+class _FollowingScreenState extends State<FollowingScreen> {
 
   final FollowingPaginatorFactory _paginatorFactory;
   final String _username;
 
   FollowingPaginator _paginator;
 
-  FollowingScreenState(this._paginatorFactory, this._username);
+  _FollowingScreenState(this._paginatorFactory, this._username);
 
   @override
   void initState() {

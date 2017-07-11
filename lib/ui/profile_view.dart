@@ -16,10 +16,10 @@ class ProfileView extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() =>
-      new ProfileViewState(_profileManager, _paginatorFactory, _username);
+      new _ProfileViewState(_profileManager, _paginatorFactory, _username);
 }
 
-class ProfileViewState extends State<ProfileView> {
+class _ProfileViewState extends State<ProfileView> {
 
   final ProfileManager _profileManager;
   final EventsPaginatorFactory _paginatorFactory;
@@ -27,7 +27,7 @@ class ProfileViewState extends State<ProfileView> {
 
   EventsPaginator _paginator;
 
-  ProfileViewState(this._profileManager,
+  _ProfileViewState(this._profileManager,
       this._paginatorFactory,
       this._username);
 

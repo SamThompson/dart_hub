@@ -14,16 +14,16 @@ class RepoListScreen extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() =>
-      new RepoListScreenState(_paginatorFactory, _username);
+      new _RepoListScreenState(_paginatorFactory, _username);
 }
 
-class RepoListScreenState extends State<RepoListScreen> {
+class _RepoListScreenState extends State<RepoListScreen> {
 
   final RepoListPaginatorFactory _paginatorFactory;
   final String _username;
   RepoListPaginator _paginator;
 
-  RepoListScreenState(this._paginatorFactory, this._username);
+  _RepoListScreenState(this._paginatorFactory, this._username);
 
   @override
   void initState() {
