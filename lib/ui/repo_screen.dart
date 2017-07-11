@@ -77,19 +77,35 @@ class _RepoScreenState extends State<RepoScreen> {
 
     if (repo.fork) {
       items.add(
-          new Text(
-            repo.fork ? 'Forked from ${repo.parent.fullName}' : '',
-            style: const TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic),
+          new Padding(
+              padding: const EdgeInsets.only(bottom: 12.0),
+              child: new Text(
+                repo.fork ? 'Forked from ${repo.parent.fullName}' : '',
+                style: const TextStyle(
+                    fontSize: 12.0, fontStyle: FontStyle.italic),
+              )
           )
       );
-      items.add(const Padding(padding: const EdgeInsets.only(top: 18.0)));
+    }
+
+    if (repo.description != null) {
+      items.add(
+          new Padding(
+              padding: const EdgeInsets.only(bottom: 16.0),
+              child: new Text(
+                  repo.description,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+              )
+          )
+      );
     }
 
     items.add(
         new Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            _buildStatButton(repo.watchersCount, Icons.visibility),
+            _buildStatButton(repo.subscribersCount, Icons.visibility),
             _buildStatButton(repo.stargazersCount, Icons.star),
             _buildStatButton(repo.forksCount, Icons.call_split)
           ],
@@ -114,7 +130,10 @@ class _RepoScreenState extends State<RepoScreen> {
         child: new Column(
           children: <Widget>[
             new Text(count.toString()),
-            new Icon(icon, size: 14.0),
+            new Padding(
+                padding: new EdgeInsets.only(top: 4.0),
+                child: new Icon(icon, size: 14.0)
+            )
           ],
         )
     );

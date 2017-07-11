@@ -11,13 +11,13 @@ class Repo {
   final String url;
   final int stargazersCount;
   final int forksCount;
-  final int watchersCount;
+  final int subscribersCount;
   final Repo parent;
   final int openIssues;
 
   const Repo(this.id, this.owner, this.name, this.fullName, this.description,
       this.private, this.fork, this.url, this.stargazersCount, this.forksCount,
-      this.watchersCount, this.parent, this.openIssues);
+      this.subscribersCount, this.parent, this.openIssues);
 
   factory Repo.fromJson(json) {
     if (json == null) {
