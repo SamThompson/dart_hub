@@ -7,11 +7,15 @@ import 'package:dart_hub/manager/auth_manager.dart';
 class ProfileManager {
 
   final AuthManager _authManager;
+  final String _username;
 
-  ProfileManager(this._authManager);
+  ProfileManager(this._authManager, this._username);
 
   Future<User> loadUser() async {
-    var response = await _authManager.oauthClient.get('https://api.github.com/user');
+    var oauthClient = _authManager.oauthClient;
+    var response = await oauthClient
+        .get('https://api.github.com/users/${_username}')
+        .whenComplete(oauthClient.close);
 
     if (response.statusCode == 200) {
       var decoded = JSON.decode(response.body);

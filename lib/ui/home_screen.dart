@@ -52,7 +52,7 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         icon: const Icon(Icons.person),
         title: const Text('Profile'),
         content: new ProfileView(
-            new ProfileManager(_authManager),
+            new ProfileManager(_authManager, _authManager.username),
             new EventsPaginatorFactory(_authManager),
             _authManager.username
         ),
