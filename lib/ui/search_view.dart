@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 class SearchView extends StatefulWidget {
 
   @override
-  State<StatefulWidget> createState() => new SearchViewState();
+  State<StatefulWidget> createState() => new _SearchViewState();
 }
 
-class SearchViewState extends State<SearchView> {
+class _SearchViewState extends State<SearchView> {
 
   @override
   Widget build(BuildContext context) {

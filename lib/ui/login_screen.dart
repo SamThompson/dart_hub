@@ -8,16 +8,16 @@ class LoginScreen extends StatefulWidget {
   LoginScreen(this._authManager);
 
   @override
-  State createState() => new LoginScreenState(_authManager);
+  State createState() => new _LoginScreenState(_authManager);
 }
 
-class LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen> {
 
   final AuthManager _authManager;
   final _usernameController = new TextEditingController();
   final _passwordController = new TextEditingController();
 
-  LoginScreenState(this._authManager);
+  _LoginScreenState(this._authManager);
 
   void _handleSubmit() {
     _authManager.login(_usernameController.text, _passwordController.text)

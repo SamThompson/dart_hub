@@ -14,17 +14,17 @@ class EventsView extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() =>
-      new FeedViewState(_paginatorFactory, _username);
+      new _FeedViewState(_paginatorFactory, _username);
 }
 
-class FeedViewState extends State<EventsView> {
+class _FeedViewState extends State<EventsView> {
 
   final EventsPaginatorFactory _paginatorFactory;
   final String _username;
 
   EventsPaginator _paginator;
 
-  FeedViewState(this._paginatorFactory, this._username);
+  _FeedViewState(this._paginatorFactory, this._username);
 
   @override
   void initState() {

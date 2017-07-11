@@ -9,14 +9,14 @@ class SplashScreen extends StatefulWidget {
   SplashScreen(this._authManager);
 
   @override
-  State<StatefulWidget> createState() => new SplashState(_authManager);
+  State<StatefulWidget> createState() => new _SplashState(_authManager);
 }
 
-class SplashState extends State<SplashScreen> {
+class _SplashState extends State<SplashScreen> {
 
   final AuthManager _authManager;
 
-  SplashState(this._authManager);
+  _SplashState(this._authManager);
 
   @override
   void initState() {

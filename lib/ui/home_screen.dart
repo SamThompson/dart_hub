@@ -15,16 +15,16 @@ class HomeScreen extends StatefulWidget {
   HomeScreen(this._authManager);
 
   @override
-  State createState() => new HomeScreenState(_authManager);
+  State createState() => new _HomeScreenState(_authManager);
 }
 
-class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   final AuthManager _authManager;
   int _currentIndex = 0;
   List<HomeScreenItem> _homeScreenItems;
 
-  HomeScreenState(this._authManager);
+  _HomeScreenState(this._authManager);
 
   @override
   void initState() {

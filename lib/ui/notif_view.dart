@@ -11,15 +11,15 @@ class NotifView extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() =>
-      new NotifScreenState(_paginatorFactory);
+      new _NotifScreenState(_paginatorFactory);
 }
 
-class NotifScreenState extends State<NotifView> {
+class _NotifScreenState extends State<NotifView> {
 
   final NotifPaginatorFactory _paginatorFactory;
   NotifPaginator _paginator;
 
-  NotifScreenState(this._paginatorFactory);
+  _NotifScreenState(this._paginatorFactory);
 
   @override
   void initState() {
