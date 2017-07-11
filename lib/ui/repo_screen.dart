@@ -9,6 +9,11 @@ class RepoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Container();
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text('${_username}/${_repo}'),
+      ),
+      body: new Center(),
+    );
   }
 }
