@@ -1,13 +1,21 @@
+import 'package:dart_hub/manager/event_paginator.dart';
+import 'package:dart_hub/manager/profile_manager.dart';
+import 'package:dart_hub/ui/profile_view.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
 
+  final ProfileManager _profileManager;
+  final EventsPaginatorFactory _paginatorFctory;
   final String _username;
 
-  ProfileScreen(this._username);
+  ProfileScreen(this._profileManager, this._paginatorFctory, this._username);
 
   @override
   Widget build(BuildContext context) {
-    return new Container();
+    return new Scaffold(
+      appBar: new AppBar(),
+      body: new ProfileView(_profileManager, _paginatorFctory, _username),
+    );
   }
 }
