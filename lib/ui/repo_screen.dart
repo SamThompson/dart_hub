@@ -68,7 +68,12 @@ class _RepoScreenState extends State<RepoScreen> {
           child: new CircularProgressIndicator(),
         );
       default:
-        return _buildRepoHeader(snapshot.data);
+        return new Column(
+            children: <Widget>[
+              _buildRepoHeader(snapshot.data),
+              const Divider()
+            ]
+        );
     }
   }
 
@@ -78,7 +83,7 @@ class _RepoScreenState extends State<RepoScreen> {
     if (repo.fork) {
       items.add(
           new Padding(
-              padding: const EdgeInsets.only(bottom: 12.0),
+              padding: const EdgeInsets.only(bottom: 16.0),
               child: new Text(
                 repo.fork ? 'Forked from ${repo.parent.fullName}' : '',
                 style: const TextStyle(
@@ -91,11 +96,11 @@ class _RepoScreenState extends State<RepoScreen> {
     if (repo.description != null) {
       items.add(
           new Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
+              padding: const EdgeInsets.only(bottom: 12.0),
               child: new Text(
-                  repo.description,
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
+                repo.description,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
               )
           )
       );
@@ -112,10 +117,8 @@ class _RepoScreenState extends State<RepoScreen> {
         )
     );
 
-    items.add(const Divider());
-
     return new Container(
-        padding: new EdgeInsets.all(16.0),
+        padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 8.0),
         child: new Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -131,7 +134,7 @@ class _RepoScreenState extends State<RepoScreen> {
           children: <Widget>[
             new Text(count.toString()),
             new Padding(
-                padding: new EdgeInsets.only(top: 4.0),
+                padding: new EdgeInsets.only(top: 2.0),
                 child: new Icon(icon, size: 14.0)
             )
           ],
