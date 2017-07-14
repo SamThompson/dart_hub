@@ -60,6 +60,7 @@ HandlerFunc buildRepoHandler(AuthManager authManager) {
   return (BuildContext context, Map<String, dynamic> params) =>
   new RepoScreen(
       new RepoManager(authManager),
+      new EventsPaginatorFactory(authManager),
       params['owner'],
       params['repo']);
 }
