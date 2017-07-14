@@ -12,7 +12,7 @@ class FollowingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new PaginatedListScreen(
+    return new PaginatedListScreen<User>(
       title: new Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,

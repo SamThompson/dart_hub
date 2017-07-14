@@ -12,12 +12,12 @@ class FollowersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new PaginatedListScreen(
+    return new PaginatedListScreen<User>(
       title: new Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            new Text('${_username}'),
+            new Text(_username),
             new Text('Followers', style: new TextStyle(fontSize: 12.0))
           ]
       ),
