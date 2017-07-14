@@ -1,10 +1,9 @@
 import 'package:dart_hub/manager/repo_manager.dart';
 import 'package:dart_hub/manager/auth_manager.dart';
 import 'package:dart_hub/manager/event_paginator.dart';
-import 'package:dart_hub/manager/followers_paginator.dart';
-import 'package:dart_hub/manager/following_paginator.dart';
 import 'package:dart_hub/manager/profile_manager.dart';
 import 'package:dart_hub/manager/repo_list_paginator.dart';
+import 'package:dart_hub/manager/user_paginator.dart';
 import 'package:dart_hub/ui/followers_screen.dart';
 import 'package:dart_hub/ui/following_screen.dart';
 import 'package:dart_hub/ui/repo_list_screen.dart';
