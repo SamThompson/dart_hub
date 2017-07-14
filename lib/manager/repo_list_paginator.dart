@@ -23,14 +23,12 @@ class RepoListPaginator extends BasePaginator<Repo> {
 class RepoListPaginatorFactory {
   
   final AuthManager _authManager;
+  final String _username;
 
-  RepoListPaginatorFactory(this._authManager);
+  RepoListPaginatorFactory(this._authManager, this._username);
 
-  RepoListPaginator buildPaginatorForUser(String username) {
-    if (username == null) {
-      return new RepoListPaginator.reposForLoggedInUser(_authManager);
-    } else {
-      return new RepoListPaginator.reposForUsername(_authManager, username);
-    }
+  @override
+  RepoListPaginator buildPaginator(String username) {
+    return new RepoListPaginator.reposForUsername(_authManager, _username);
   }
 }

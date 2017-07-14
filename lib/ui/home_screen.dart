@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         icon: const Icon(Icons.rss_feed),
         title: const Text('Feed'),
         content: new EventsView(
-            new EventsPaginatorFactory(_authManager),
+            new ReceivedEventsPaginatorFactory(_authManager, _authManager.username),
             _authManager.username
         )
       ),
@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         title: const Text('Profile'),
         content: new ProfileView(
             new ProfileManager(_authManager, _authManager.username),
-            new EventsPaginatorFactory(_authManager),
+            new PerformedEventsPaginatorFactory(_authManager, _authManager.username),
             _authManager.username
         ),
       )

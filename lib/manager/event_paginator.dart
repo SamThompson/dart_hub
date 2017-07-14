@@ -1,6 +1,7 @@
 import 'package:dart_hub/data/event.dart';
 import 'package:dart_hub/manager/auth_manager.dart';
 import 'package:dart_hub/manager/base_paginator.dart';
+import 'package:dart_hub/manager/paginator_factory.dart';
 
 class EventsPaginator extends BasePaginator<Event> {
 
@@ -23,20 +24,42 @@ class EventsPaginator extends BasePaginator<Event> {
   }
 }
 
-class EventsPaginatorFactory {
+class ReceivedEventsPaginatorFactory extends PaginatorFactory<Event> {
+
   final AuthManager _authManager;
+  final String _username;
 
-  EventsPaginatorFactory(this._authManager);
+  ReceivedEventsPaginatorFactory(this._authManager, this._username);
 
-  EventsPaginator buildPaginatorForReceivedEvents(String username) {
-    return new EventsPaginator.receivedEvents(_authManager, username);
+  @override
+  EventsPaginator buildPaginator() {
+    return new EventsPaginator.receivedEvents(_authManager, _username);
   }
+}
 
-  EventsPaginator buildPaginatorForPerformedEvents(String username) {
-    return new EventsPaginator.performedEvents(_authManager, username);
+class PerformedEventsPaginatorFactory extends PaginatorFactory<Event> {
+
+  final AuthManager _authManager;
+  final String _username;
+
+  PerformedEventsPaginatorFactory(this._authManager, this._username);
+
+  @override
+  EventsPaginator buildPaginator() {
+    return new EventsPaginator.performedEvents(_authManager, _username);
   }
+}
 
-  EventsPaginator buildPaginatorForRepoEvents(String username, String repo) {
-    return new EventsPaginator.repoEvents(_authManager, username, repo);
+class RepoEventsPaginatorFactory extends PaginatorFactory<Event> {
+
+  final AuthManager _authManager;
+  final String _username;
+  final String _repo;
+
+  RepoEventsPaginatorFactory(this._authManager, this._username, this._repo);
+
+  @override
+  EventsPaginator buildPaginator() {
+    return new EventsPaginator.repoEvents(_authManager, _username, _repo);
   }
 }

@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 class ProfileView extends StatefulWidget {
 
   final ProfileManager _profileManager;
-  final EventsPaginatorFactory _paginatorFactory;
+  final PerformedEventsPaginatorFactory _paginatorFactory;
   final String _username;
 
   ProfileView(this._profileManager, this._paginatorFactory, this._username);
@@ -22,7 +22,7 @@ class ProfileView extends StatefulWidget {
 class _ProfileViewState extends State<ProfileView> {
 
   final ProfileManager _profileManager;
-  final EventsPaginatorFactory _paginatorFactory;
+  final PerformedEventsPaginatorFactory _paginatorFactory;
   final String _username;
 
   EventsPaginator _paginator;
@@ -34,7 +34,7 @@ class _ProfileViewState extends State<ProfileView> {
   @override
   void initState() {
     super.initState();
-    _paginator = _paginatorFactory.buildPaginatorForPerformedEvents(_username);
+    _paginator = _paginatorFactory.buildPaginator();
   }
 
   @override

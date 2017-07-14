@@ -28,7 +28,7 @@ class _FollowersScreenState extends State<FollowersScreen> {
   @override
   void initState() {
     super.initState();
-    _paginator = _paginatorFactory.buildPaginatorForUser(_username);
+    _paginator = _paginatorFactory.buildPaginator();
   }
 
   @override
@@ -56,7 +56,7 @@ class _FollowersScreenState extends State<FollowersScreen> {
 
   Future _refresh() async {
     setState(() {
-      _paginator = _paginatorFactory.buildPaginatorForUser(_username);
+      _paginator = _paginatorFactory.buildPaginator();
     });
   }
 

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class ProfileScreen extends StatelessWidget {
 
   final ProfileManager _profileManager;
-  final EventsPaginatorFactory _paginatorFctory;
+  final PerformedEventsPaginatorFactory _paginatorFctory;
   final String _username;
 
   ProfileScreen(this._profileManager, this._paginatorFctory, this._username);

@@ -1,6 +1,7 @@
 import 'package:dart_hub/data/user.dart';
 import 'package:dart_hub/manager/auth_manager.dart';
 import 'package:dart_hub/manager/base_paginator.dart';
+import 'package:dart_hub/manager/paginator_factory.dart';
 
 class FollowersPaginator extends BasePaginator<User> {
 
@@ -20,17 +21,15 @@ class FollowersPaginator extends BasePaginator<User> {
   }
 }
 
-class FollowersPaginatorFactory {
+class FollowersPaginatorFactory extends PaginatorFactory<User> {
 
   final AuthManager _authManager;
+  final String _username;
 
-  FollowersPaginatorFactory(this._authManager);
+  FollowersPaginatorFactory(this._authManager, this._username);
 
-  FollowersPaginator buildPaginatorForUser(String username) {
-    if (username == null) {
-      return new FollowersPaginator.followersForLoggedInUser(_authManager);
-    } else {
-      return new FollowersPaginator.followersForUsername(_authManager, username);
-    }
+  @override
+  FollowersPaginator buildPaginator() {
+    return new FollowersPaginator.followersForUsername(_authManager, _username);
   }
 }
