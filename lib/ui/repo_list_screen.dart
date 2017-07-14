@@ -74,6 +74,7 @@ class _RepoListScreenState extends State<RepoListScreen> {
       trailing: repo.private
           ? const Icon(Icons.lock, color: Colors.grey)
           : null,
+      onTap: () => Navigator.pushNamed(context, '/repos/${repo.fullName}'),
     );
   }
 }

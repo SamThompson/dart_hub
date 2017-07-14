@@ -1,3 +1,4 @@
+import 'package:dart_hub/manager/RepoManager.dart';
 import 'package:dart_hub/manager/auth_manager.dart';
 import 'package:dart_hub/manager/event_paginator.dart';
 import 'package:dart_hub/manager/followers_paginator.dart';
@@ -55,9 +56,12 @@ HandlerFunc buildFollowingHandler(AuthManager authManager) {
       params['username']);
 }
 
-HandlerFunc buildRepoHandler() {
+HandlerFunc buildRepoHandler(AuthManager authManager) {
   return (BuildContext context, Map<String, dynamic> params) =>
-  new RepoScreen(params['owner'],
+  new RepoScreen(
+      new RepoManager(authManager),
+      new EventsPaginatorFactory(authManager),
+      params['owner'],
       params['repo']);
 }
 
@@ -114,6 +118,6 @@ void configureRouter(Router router, AuthManager authManager) {
 
   router.define(
       '/repos/:owner/:repo',
-      handler: new Handler(handlerFunc: buildRepoHandler())
+      handler: new Handler(handlerFunc: buildRepoHandler(authManager))
   );
 }

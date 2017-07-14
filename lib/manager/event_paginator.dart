@@ -14,6 +14,9 @@ class EventsPaginator extends BasePaginator<Event> {
   EventsPaginator.performedEvents(AuthManager authManager, String username)
       : this(authManager, 'https://api.github.com/users/${username}/events');
 
+  EventsPaginator.repoEvents(AuthManager authManager, String username, String repo)
+      : this(authManager, 'https://api.github.com/repos/${username}/${repo}/events');
+
   @override
   Event parseItem(itemJson) {
     return new Event.fromJson(itemJson);
@@ -31,5 +34,9 @@ class EventsPaginatorFactory {
 
   EventsPaginator buildPaginatorForPerformedEvents(String username) {
     return new EventsPaginator.performedEvents(_authManager, username);
+  }
+
+  EventsPaginator buildPaginatorForRepoEvents(String username, String repo) {
+    return new EventsPaginator.repoEvents(_authManager, username, repo);
   }
 }

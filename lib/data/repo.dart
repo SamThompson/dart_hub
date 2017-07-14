@@ -9,9 +9,15 @@ class Repo {
   final bool private;
   final bool fork;
   final String url;
+  final int stargazersCount;
+  final int forksCount;
+  final int subscribersCount;
+  final Repo parent;
+  final int openIssues;
 
   const Repo(this.id, this.owner, this.name, this.fullName, this.description,
-      this.private, this.fork, this.url);
+      this.private, this.fork, this.url, this.stargazersCount, this.forksCount,
+      this.subscribersCount, this.parent, this.openIssues);
 
   factory Repo.fromJson(json) {
     if (json == null) {
@@ -25,7 +31,12 @@ class Repo {
           json['description'],
           json['private'],
           json['fork'],
-          json['url']
+          json['url'],
+          json['stargazers_count'],
+          json['forks_count'],
+          json['subscribers_count'],
+          new Repo.fromJson(json['parent']),
+          json['open_issues']
       );
     }
   }
