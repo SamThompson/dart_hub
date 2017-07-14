@@ -31,28 +31,28 @@ HandlerFunc buildUserHandler(AuthManager authManager) {
   return (BuildContext context, Map<String, dynamic> params) =>
   new ProfileScreen(
       new ProfileManager(authManager, params['username']),
-      new EventsPaginatorFactory(authManager),
+      new PerformedEventsPaginatorFactory(authManager, params['username']),
       params['username']);
 }
 
 HandlerFunc buildRepoListHandler(AuthManager authManager) {
   return (BuildContext context, Map<String, dynamic> params) =>
   new RepoListScreen(
-      new RepoListPaginatorFactory(authManager),
+      new RepoListPaginatorFactory(authManager, params['username']),
       params['username']);
 }
 
 HandlerFunc buildFollowersHandler(AuthManager authManager) {
   return (BuildContext context, Map<String, dynamic> params) =>
   new FollowersScreen(
-      new FollowersPaginatorFactory(authManager),
+      new FollowersPaginatorFactory(authManager, params['username']),
       params['username']);
 }
 
 HandlerFunc buildFollowingHandler(AuthManager authManager) {
   return (BuildContext context, Map<String, dynamic> params) =>
   new FollowingScreen(
-      new FollowingPaginatorFactory(authManager),
+      new FollowingPaginatorFactory(authManager, params['username']),
       params['username']);
 }
 
@@ -60,7 +60,7 @@ HandlerFunc buildRepoHandler(AuthManager authManager) {
   return (BuildContext context, Map<String, dynamic> params) =>
   new RepoScreen(
       new RepoManager(authManager),
-      new EventsPaginatorFactory(authManager),
+      new RepoEventsPaginatorFactory(authManager, params['owner'], params['repo']),
       params['owner'],
       params['repo']);
 }

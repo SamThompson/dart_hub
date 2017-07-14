@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 class RepoScreen extends StatefulWidget {
 
   final RepoManager _repoManager;
-  final EventsPaginatorFactory _paginatorFactory;
+  final RepoEventsPaginatorFactory _paginatorFactory;
   final String _username;
   final String _repo;
 
@@ -24,7 +24,7 @@ class RepoScreen extends StatefulWidget {
 class _RepoScreenState extends State<RepoScreen> {
 
   final RepoManager _repoManager;
-  final EventsPaginatorFactory _paginatorFactory;
+  final RepoEventsPaginatorFactory _paginatorFactory;
   final String _username;
   final String _repo;
 
@@ -37,7 +37,7 @@ class _RepoScreenState extends State<RepoScreen> {
   void initState() {
     super.initState();
     _future = _repoManager.loadRepo(_username, _repo);
-    _paginator = _paginatorFactory.buildPaginatorForRepoEvents(_username, _repo);
+    _paginator = _paginatorFactory.buildPaginator();
   }
 
   @override

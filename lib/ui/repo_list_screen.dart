@@ -28,7 +28,7 @@ class _RepoListScreenState extends State<RepoListScreen> {
   @override
   void initState() {
     super.initState();
-    _paginator = _paginatorFactory.buildPaginatorForUser(_username);
+    _paginator = _paginatorFactory.buildPaginator(_username);
   }
 
   @override
@@ -62,7 +62,7 @@ class _RepoListScreenState extends State<RepoListScreen> {
 
   Future _refresh() async {
     setState(() {
-      _paginator = _paginatorFactory.buildPaginatorForUser(_username);
+      _paginator = _paginatorFactory.buildPaginator(_username);
     });
   }
 

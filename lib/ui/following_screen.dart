@@ -29,7 +29,7 @@ class _FollowingScreenState extends State<FollowingScreen> {
   @override
   void initState() {
     super.initState();
-    _paginator = _paginatorFactory.buildPaginatorForUser(_username);
+    _paginator = _paginatorFactory.buildPaginator();
   }
 
   @override
@@ -40,7 +40,7 @@ class _FollowingScreenState extends State<FollowingScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                new Text('${_username}'),
+                new Text(_username),
                 new Text('Following', style: new TextStyle(fontSize: 12.0))
               ]
           )
@@ -57,7 +57,7 @@ class _FollowingScreenState extends State<FollowingScreen> {
 
   Future _refresh() async {
     setState(() {
-      _paginator = _paginatorFactory.buildPaginatorForUser(_username);
+      _paginator = _paginatorFactory.buildPaginator();
     });
   }
 

@@ -24,7 +24,7 @@ class _NotifScreenState extends State<NotifView> {
   @override
   void initState() {
     super.initState();
-    _paginator = _paginatorFactory.buildNotifPaginator();
+    _paginator = _paginatorFactory.buildPaginator();
   }
 
   @override

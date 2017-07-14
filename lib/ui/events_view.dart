@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 class EventsView extends StatefulWidget {
 
-  final EventsPaginatorFactory _paginatorFactory;
+  final ReceivedEventsPaginatorFactory _paginatorFactory;
   final String _username;
 
   EventsView(this._paginatorFactory, this._username);
@@ -19,7 +19,7 @@ class EventsView extends StatefulWidget {
 
 class _FeedViewState extends State<EventsView> {
 
-  final EventsPaginatorFactory _paginatorFactory;
+  final ReceivedEventsPaginatorFactory _paginatorFactory;
   final String _username;
 
   EventsPaginator _paginator;
@@ -29,12 +29,12 @@ class _FeedViewState extends State<EventsView> {
   @override
   void initState() {
     super.initState();
-    _paginator = _paginatorFactory.buildPaginatorForReceivedEvents(_username);
+    _paginator = _paginatorFactory.buildPaginator();
   }
 
   Future _refresh() async {
     setState(() {
-      _paginator = _paginatorFactory.buildPaginatorForReceivedEvents(_username);
+      _paginator = _paginatorFactory.buildPaginator();
     });
   }
 
