@@ -1,6 +1,7 @@
 import 'package:dart_hub/data/repo.dart';
 import 'package:dart_hub/manager/auth_manager.dart';
 import 'package:dart_hub/manager/base_paginator.dart';
+import 'package:dart_hub/manager/paginator_factory.dart';
 
 class RepoListPaginator extends BasePaginator<Repo> {
 
@@ -20,7 +21,7 @@ class RepoListPaginator extends BasePaginator<Repo> {
   }
 }
 
-class RepoListPaginatorFactory {
+class RepoListPaginatorFactory extends PaginatorFactory<Repo> {
   
   final AuthManager _authManager;
   final String _username;
@@ -28,7 +29,7 @@ class RepoListPaginatorFactory {
   RepoListPaginatorFactory(this._authManager, this._username);
 
   @override
-  RepoListPaginator buildPaginator(String username) {
+  RepoListPaginator buildPaginator() {
     return new RepoListPaginator.reposForUsername(_authManager, _username);
   }
 }
