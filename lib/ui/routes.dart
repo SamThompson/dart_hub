@@ -1,4 +1,4 @@
-import 'package:dart_hub/manager/RepoManager.dart';
+import 'package:dart_hub/manager/repo_manager.dart';
 import 'package:dart_hub/manager/auth_manager.dart';
 import 'package:dart_hub/manager/event_paginator.dart';
 import 'package:dart_hub/manager/followers_paginator.dart';

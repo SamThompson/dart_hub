@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:dart_hub/data/event.dart';
 import 'package:dart_hub/data/repo.dart';
-import 'package:dart_hub/manager/RepoManager.dart';
+import 'package:dart_hub/manager/repo_manager.dart';
 import 'package:dart_hub/manager/event_paginator.dart';
 import 'package:dart_hub/ui/event_tile.dart';
 import 'package:dart_hub/ui/paginated_list_view.dart';
