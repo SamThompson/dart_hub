@@ -1,11 +1,9 @@
-import 'dart:async';
 import 'package:dart_hub/data/user.dart';
-import 'package:dart_hub/manager/auth_manager.dart';
 import 'package:dart_hub/manager/following_paginator.dart';
-import 'package:dart_hub/ui/paginated_list_view.dart';
+import 'package:dart_hub/ui/paginated_list_screen.dart';
 import 'package:flutter/material.dart';
 
-class FollowingScreen extends StatefulWidget {
+class FollowingScreen extends StatelessWidget {
 
   final FollowingPaginatorFactory _paginatorFactory;
   final String _username;
@@ -13,62 +11,29 @@ class FollowingScreen extends StatefulWidget {
   FollowingScreen(this._paginatorFactory, this._username);
 
   @override
-  State<StatefulWidget> createState() =>
-      new _FollowingScreenState(_paginatorFactory, _username);
-}
-
-class _FollowingScreenState extends State<FollowingScreen> {
-
-  final FollowingPaginatorFactory _paginatorFactory;
-  final String _username;
-
-  FollowingPaginator _paginator;
-
-  _FollowingScreenState(this._paginatorFactory, this._username);
-
-  @override
-  void initState() {
-    super.initState();
-    _paginator = _paginatorFactory.buildPaginator();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-          title: new Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                new Text(_username),
-                new Text('Following', style: new TextStyle(fontSize: 12.0))
-              ]
-          )
+    return new PaginatedListScreen(
+      title: new Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            new Text(_username),
+            new Text('Following', style: new TextStyle(fontSize: 12.0))
+          ]
       ),
-      body: new RefreshIndicator(
-          onRefresh: _refresh,
-          child: new PaginatedListView<User>(
-            paginator: _paginator,
-            itemBuilder: _buildFollowerTile,
-          )
-      ),
+      paginatorFactory: _paginatorFactory,
+      itemBuilder: _buildFollowerTile,
     );
-  }
-
-  Future _refresh() async {
-    setState(() {
-      _paginator = _paginatorFactory.buildPaginator();
-    });
   }
 
   Widget _buildFollowerTile(BuildContext context, User user) {
     return new ListTile(
-      leading: new CircleAvatar(
-          backgroundImage: new NetworkImage(user.avatarUrl),
-          backgroundColor: Colors.grey
-      ),
-      title: new Text(user.login),
-      onTap: () => Navigator.pushNamed(context, '/users/${user.login}')
+        leading: new CircleAvatar(
+            backgroundImage: new NetworkImage(user.avatarUrl),
+            backgroundColor: Colors.grey
+        ),
+        title: new Text(user.login),
+        onTap: () => Navigator.pushNamed(context, '/users/${user.login}')
     );
   }
 }
