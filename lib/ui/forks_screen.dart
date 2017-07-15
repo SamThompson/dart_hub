@@ -4,12 +4,13 @@ import 'package:dart_hub/ui/paginated_list_screen.dart';
 import 'package:dart_hub/ui/repo_tile.dart';
 import 'package:flutter/material.dart';
 
-class RepoListScreen extends StatelessWidget {
+class ForksScreen extends StatelessWidget {
 
-  final RepoListPaginatorFactory _paginatorFactory;
+  final ForksPaginatorFactory _paginatorFactory;
   final String _username;
+  final String _repo;
 
-  RepoListScreen(this._paginatorFactory, this._username);
+  ForksScreen(this._paginatorFactory, this._username, this._repo);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,10 @@ class RepoListScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             new Text(_username),
-            new Text('Repositories', style: new TextStyle(fontSize: 12.0))
+            new Text(
+                '${_repo} • Forks',
+                style: const TextStyle(fontSize: 12.0)
+            )
           ]
       ),
       paginatorFactory: _paginatorFactory,
@@ -28,6 +32,6 @@ class RepoListScreen extends StatelessWidget {
   }
 
   Widget _buildRepoTile(BuildContext context, Repo repo) {
-    return new RepoTile(repo);
+    return new RepoTile(repo, fullname: true, subtitle: false);
   }
 }

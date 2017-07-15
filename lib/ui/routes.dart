@@ -6,6 +6,7 @@ import 'package:dart_hub/manager/repo_list_paginator.dart';
 import 'package:dart_hub/manager/user_paginator.dart';
 import 'package:dart_hub/ui/followers_screen.dart';
 import 'package:dart_hub/ui/following_screen.dart';
+import 'package:dart_hub/ui/forks_screen.dart';
 import 'package:dart_hub/ui/repo_list_screen.dart';
 import 'package:dart_hub/ui/repo_screen.dart';
 import 'package:dart_hub/ui/home_screen.dart';
@@ -82,6 +83,14 @@ HandlerFunc buildStargazersHandler(AuthManager authManager) {
       params['repo']);
 }
 
+HandlerFunc buildForksHandler(AuthManager authManager) {
+  return (BuildContext context, Map<String, dynamic> params) =>
+  new ForksScreen(
+      new ForksPaginatorFactory(authManager, params['owner'], params['repo']),
+      params['owner'],
+      params['repo']);
+}
+
 void configureRouter(Router router, AuthManager authManager) {
   router.define(
       '/login',
@@ -146,5 +155,10 @@ void configureRouter(Router router, AuthManager authManager) {
   router.define(
       '/repos/:owner/:repo/subscribers',
       handler: new Handler(handlerFunc: buildSubscribersHandler(authManager))
+  );
+
+  router.define(
+      '/repos/:owner/:repo/forks',
+      handler: new Handler(handlerFunc: buildForksHandler(authManager))
   );
 }

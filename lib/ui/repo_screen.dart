@@ -155,6 +155,8 @@ class _RepoScreenState extends State<RepoScreen> {
                     repo.forksCount,
                     const Icon(Icons.call_split, size: 14.0),
                         () {
+                      Navigator.pushNamed(
+                          context, '/repos/${_username}/${_repo}/forks');
                     })
               ],
             )
