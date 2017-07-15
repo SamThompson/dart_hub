@@ -20,7 +20,7 @@ class SubscribersScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             new Text(_username),
-            new Text('${_repo} • Subscribers', style: new TextStyle(fontSize: 12.0))
+            new Text('${_repo} • Subscribers', style: const TextStyle(fontSize: 12.0))
           ]
       ),
       paginatorFactory: _paginatorFactory,

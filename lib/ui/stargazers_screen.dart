@@ -20,7 +20,7 @@ class StargazersScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             new Text(_username),
-            new Text('${_repo} • Stargazers', style: new TextStyle(fontSize: 12.0))
+            new Text('${_repo} • Stargazers', style: const TextStyle(fontSize: 12.0))
           ]
       ),
       paginatorFactory: _paginatorFactory,
