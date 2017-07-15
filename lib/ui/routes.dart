@@ -1,10 +1,9 @@
 import 'package:dart_hub/manager/repo_manager.dart';
 import 'package:dart_hub/manager/auth_manager.dart';
 import 'package:dart_hub/manager/event_paginator.dart';
-import 'package:dart_hub/manager/followers_paginator.dart';
-import 'package:dart_hub/manager/following_paginator.dart';
 import 'package:dart_hub/manager/profile_manager.dart';
 import 'package:dart_hub/manager/repo_list_paginator.dart';
+import 'package:dart_hub/manager/user_paginator.dart';
 import 'package:dart_hub/ui/followers_screen.dart';
 import 'package:dart_hub/ui/following_screen.dart';
 import 'package:dart_hub/ui/repo_list_screen.dart';
@@ -12,6 +11,8 @@ import 'package:dart_hub/ui/repo_screen.dart';
 import 'package:dart_hub/ui/home_screen.dart';
 import 'package:dart_hub/ui/login_screen.dart';
 import 'package:dart_hub/ui/profile_screen.dart';
+import 'package:dart_hub/ui/stargazers_screen.dart';
+import 'package:dart_hub/ui/subscribers_screen.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 
@@ -61,6 +62,22 @@ HandlerFunc buildRepoHandler(AuthManager authManager) {
   new RepoScreen(
       new RepoManager(authManager),
       new RepoEventsPaginatorFactory(authManager, params['owner'], params['repo']),
+      params['owner'],
+      params['repo']);
+}
+
+HandlerFunc buildSubscribersHandler(AuthManager authManager) {
+  return (BuildContext context, Map<String, dynamic> params) =>
+  new SubscribersScreen(
+      new SubscribersPaginatorFactory(authManager, params['owner'], params['repo']),
+      params['owner'],
+      params['repo']);
+}
+
+HandlerFunc buildStargazersHandler(AuthManager authManager) {
+  return (BuildContext context, Map<String, dynamic> params) =>
+  new StargazersScreen(
+      new StargazersPaginatorFactory(authManager, params['owner'], params['repo']),
       params['owner'],
       params['repo']);
 }
@@ -119,5 +136,15 @@ void configureRouter(Router router, AuthManager authManager) {
   router.define(
       '/repos/:owner/:repo',
       handler: new Handler(handlerFunc: buildRepoHandler(authManager))
+  );
+
+  router.define(
+      '/repos/:owner/:repo/stargazers',
+      handler: new Handler(handlerFunc: buildStargazersHandler(authManager))
+  );
+
+  router.define(
+      '/repos/:owner/:repo/subscribers',
+      handler: new Handler(handlerFunc: buildSubscribersHandler(authManager))
   );
 }

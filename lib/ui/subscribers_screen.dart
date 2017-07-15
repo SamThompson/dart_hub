@@ -4,12 +4,13 @@ import 'package:dart_hub/ui/paginated_list_screen.dart';
 import 'package:dart_hub/ui/user_tile.dart';
 import 'package:flutter/material.dart';
 
-class FollowingScreen extends StatelessWidget {
+class SubscribersScreen extends StatelessWidget {
 
-  final FollowingPaginatorFactory _paginatorFactory;
+  final SubscribersPaginatorFactory _paginatorFactory;
   final String _username;
+  final String _repo;
 
-  FollowingScreen(this._paginatorFactory, this._username);
+  SubscribersScreen(this._paginatorFactory, this._username, this._repo);
 
   @override
   Widget build(BuildContext context) {
@@ -19,15 +20,15 @@ class FollowingScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             new Text(_username),
-            new Text('Following', style: new TextStyle(fontSize: 12.0))
+            new Text('${_repo} • Subscribers', style: const TextStyle(fontSize: 12.0))
           ]
       ),
       paginatorFactory: _paginatorFactory,
-      itemBuilder: _buildFollowerTile,
+      itemBuilder: _buildUserTile,
     );
   }
 
-  Widget _buildFollowerTile(BuildContext context, User user) {
+  Widget _buildUserTile(BuildContext context, User user) {
     return new UserTile(user);
   }
 }

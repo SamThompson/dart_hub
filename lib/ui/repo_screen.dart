@@ -14,7 +14,8 @@ class RepoScreen extends StatefulWidget {
   final String _username;
   final String _repo;
 
-  RepoScreen(this._repoManager, this._paginatorFactory, this._username, this._repo);
+  RepoScreen(this._repoManager, this._paginatorFactory, this._username,
+      this._repo);
 
   @override
   State<StatefulWidget> createState() =>
@@ -31,7 +32,8 @@ class _RepoScreenState extends State<RepoScreen> {
   Future<Repo> _future;
   EventsPaginator _paginator;
 
-  _RepoScreenState(this._repoManager, this._paginatorFactory, this._username, this._repo);
+  _RepoScreenState(this._repoManager, this._paginatorFactory, this._username,
+      this._repo);
 
   @override
   void initState() {
@@ -64,7 +66,8 @@ class _RepoScreenState extends State<RepoScreen> {
           new Flexible(
               child: new PaginatedListView<Event>(
                 paginator: _paginator,
-                itemBuilder: (BuildContext context, Event events) => new EventTile(events),
+                itemBuilder: (BuildContext context,
+                    Event events) => new EventTile(events),
               )
           )
         ]
@@ -134,12 +137,25 @@ class _RepoScreenState extends State<RepoScreen> {
             child: new Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                _buildStatButton(repo.subscribersCount,
-                    const Icon(Icons.visibility, size: 14.0)),
                 _buildStatButton(
-                    repo.stargazersCount, const Icon(Icons.star, size: 14.0)),
+                    repo.subscribersCount,
+                    const Icon(Icons.visibility, size: 14.0),
+                        () {
+                      Navigator.pushNamed(
+                          context, '/repos/${_username}/${_repo}/subscribers');
+                    }),
                 _buildStatButton(
-                    repo.forksCount, const Icon(Icons.call_split, size: 14.0))
+                    repo.stargazersCount,
+                    const Icon(Icons.star, size: 14.0),
+                        () {
+                      Navigator.pushNamed(
+                          context, '/repos/${_username}/${_repo}/stargazers');
+                    }),
+                _buildStatButton(
+                    repo.forksCount,
+                    const Icon(Icons.call_split, size: 14.0),
+                        () {
+                    })
               ],
             )
         )
@@ -149,8 +165,9 @@ class _RepoScreenState extends State<RepoScreen> {
         new Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            _buildStatButton(repo.openIssues, const Text('Issues')),
-            _buildStatButton(repo.openIssues, const Text('Pull requests'))
+            _buildStatButton(repo.openIssues, const Text('Issues'), () {}),
+            _buildStatButton(
+                repo.openIssues, const Text('Pull requests'), () {})
           ],
         )
     );
@@ -165,9 +182,9 @@ class _RepoScreenState extends State<RepoScreen> {
     );
   }
 
-  Widget _buildStatButton(int count, Widget bottom) {
+  Widget _buildStatButton(int count, Widget bottom, VoidCallback onPressed) {
     return new FlatButton(
-        onPressed: () {},
+        onPressed: onPressed,
         child: new Column(
           children: <Widget>[
             new Text(count.toString()),
