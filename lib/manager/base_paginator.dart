@@ -43,7 +43,7 @@ abstract class BasePaginator<T> extends Paginator<T> {
               .toList()
       );
     } else {
-      throw 'Error loading events';
+      throw 'Error loading items: ${response.body}';
     }
   }
 }
