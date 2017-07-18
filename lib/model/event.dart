@@ -1,4 +1,4 @@
-import 'package:dart_hub/data/pull_request.dart';
+import 'package:dart_hub/model/pull_request.dart';
 
 class Event {
 

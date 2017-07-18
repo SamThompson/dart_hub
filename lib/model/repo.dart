@@ -1,4 +1,4 @@
-import 'package:dart_hub/data/user.dart';
+import 'package:dart_hub/model/user.dart';
 
 class Repo {
   final int id;

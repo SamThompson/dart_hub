@@ -1,4 +1,4 @@
-import 'package:dart_hub/data/user.dart';
+import 'package:dart_hub/model/user.dart';
 import 'package:flutter/material.dart';
 
 class UserTile extends StatelessWidget {

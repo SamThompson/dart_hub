@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:dart_hub/data/repo.dart';
-import 'package:dart_hub/manager/auth_manager.dart';
+import 'package:dart_hub/model/repo.dart';
+import 'package:dart_hub/interactor/manager/auth_manager.dart';
 
 class RepoManager {
 

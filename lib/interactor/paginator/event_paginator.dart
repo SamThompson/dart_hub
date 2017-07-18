@@ -1,7 +1,7 @@
-import 'package:dart_hub/data/event.dart';
-import 'package:dart_hub/manager/auth_manager.dart';
-import 'package:dart_hub/manager/base_paginator.dart';
-import 'package:dart_hub/manager/paginator_factory.dart';
+import 'package:dart_hub/model/event.dart';
+import 'package:dart_hub/interactor/manager/auth_manager.dart';
+import 'package:dart_hub/interactor/paginator/base_paginator.dart';
+import 'package:dart_hub/interactor/paginator/paginator_factory.dart';
 
 class EventsPaginator extends BasePaginator<Event> {
 

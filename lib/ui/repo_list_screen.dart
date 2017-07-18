@@ -1,7 +1,7 @@
-import 'package:dart_hub/data/repo.dart';
-import 'package:dart_hub/manager/repo_list_paginator.dart';
+import 'package:dart_hub/model/repo.dart';
+import 'package:dart_hub/interactor/paginator/repo_list_paginator.dart';
 import 'package:dart_hub/ui/paginated_list_screen.dart';
-import 'package:dart_hub/ui/repo_tile.dart';
+import 'package:dart_hub/ui/tiles/repo_tile.dart';
 import 'package:flutter/material.dart';
 
 class RepoListScreen extends StatelessWidget {

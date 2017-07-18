@@ -1,4 +1,4 @@
-import 'package:dart_hub/data/repo.dart';
+import 'package:dart_hub/model/repo.dart';
 import 'package:flutter/material.dart';
 
 class RepoTile extends StatelessWidget {

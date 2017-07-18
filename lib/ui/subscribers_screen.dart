@@ -1,7 +1,7 @@
-import 'package:dart_hub/data/user.dart';
-import 'package:dart_hub/manager/user_paginator.dart';
+import 'package:dart_hub/model/user.dart';
+import 'package:dart_hub/interactor/paginator/user_paginator.dart';
 import 'package:dart_hub/ui/paginated_list_screen.dart';
-import 'package:dart_hub/ui/user_tile.dart';
+import 'package:dart_hub/ui/tiles/user_tile.dart';
 import 'package:flutter/material.dart';
 
 class SubscribersScreen extends StatelessWidget {

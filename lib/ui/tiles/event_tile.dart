@@ -1,4 +1,4 @@
-import 'package:dart_hub/data/event.dart';
+import 'package:dart_hub/model/event.dart';
 import 'package:flutter/material.dart';
 
 class EventTile extends StatelessWidget {

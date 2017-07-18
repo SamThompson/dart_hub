@@ -1,4 +1,4 @@
-import 'package:dart_hub/manager/auth_manager.dart';
+import 'package:dart_hub/interactor/manager/auth_manager.dart';
 import 'package:dart_hub/ui/routes.dart';
 import 'package:dart_hub/ui/splash_screen.dart';
 import 'package:fluro/fluro.dart';

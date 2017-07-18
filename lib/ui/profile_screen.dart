@@ -1,5 +1,5 @@
-import 'package:dart_hub/manager/event_paginator.dart';
-import 'package:dart_hub/manager/profile_manager.dart';
+import 'package:dart_hub/interactor/manager/profile_manager.dart';
+import 'package:dart_hub/interactor/paginator/event_paginator.dart';
 import 'package:dart_hub/ui/profile_view.dart';
 import 'package:flutter/material.dart';
 

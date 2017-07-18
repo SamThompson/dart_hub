@@ -1,4 +1,4 @@
-import 'package:dart_hub/manager/auth_manager.dart';
+import 'package:dart_hub/interactor/manager/auth_manager.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {

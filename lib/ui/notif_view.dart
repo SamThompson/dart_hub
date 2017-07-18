@@ -1,6 +1,6 @@
-import 'package:dart_hub/data/notif.dart';
-import 'package:dart_hub/manager/notif_paginator.dart';
-import 'package:dart_hub/ui/paginated_list_view.dart';
+import 'package:dart_hub/model/notif.dart';
+import 'package:dart_hub/interactor/paginator/notif_paginator.dart';
+import 'package:dart_hub/ui/paginated_list/paginated_list_view.dart';
 import 'package:flutter/material.dart';
 
 class NotifView extends StatefulWidget {

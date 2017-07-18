@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'package:dart_hub/data/user.dart';
-import 'package:dart_hub/manager/paginator_factory.dart';
-import 'package:dart_hub/ui/paginated_list_view.dart';
+import 'package:dart_hub/model/user.dart';
+import 'package:dart_hub/interactor/paginator/paginator_factory.dart';
+import 'package:dart_hub/ui/paginated_list/paginated_list_view.dart';
 import 'package:flutter/material.dart';
 
 class PaginatedListScreen<T> extends StatefulWidget {

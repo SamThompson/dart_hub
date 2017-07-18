@@ -1,7 +1,7 @@
-import 'package:dart_hub/data/notif.dart';
-import 'package:dart_hub/manager/auth_manager.dart';
-import 'package:dart_hub/manager/base_paginator.dart';
-import 'package:dart_hub/manager/paginator_factory.dart';
+import 'package:dart_hub/model/notif.dart';
+import 'package:dart_hub/interactor/manager/auth_manager.dart';
+import 'package:dart_hub/interactor/paginator/base_paginator.dart';
+import 'package:dart_hub/interactor/paginator/paginator_factory.dart';
 
 class NotifPaginator extends BasePaginator<Notif> {
 

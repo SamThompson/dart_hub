@@ -1,7 +1,7 @@
-import 'package:dart_hub/manager/auth_manager.dart';
-import 'package:dart_hub/manager/event_paginator.dart';
-import 'package:dart_hub/manager/notif_paginator.dart';
-import 'package:dart_hub/manager/profile_manager.dart';
+import 'package:dart_hub/interactor/manager/auth_manager.dart';
+import 'package:dart_hub/interactor/manager/profile_manager.dart';
+import 'package:dart_hub/interactor/paginator/event_paginator.dart';
+import 'package:dart_hub/interactor/paginator/notif_paginator.dart';
 import 'package:dart_hub/ui/events_view.dart';
 import 'package:dart_hub/ui/notif_view.dart';
 import 'package:dart_hub/ui/profile_view.dart';

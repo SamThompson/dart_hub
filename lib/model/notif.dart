@@ -1,5 +1,5 @@
-import 'package:dart_hub/data/date_utils.dart';
-import 'package:dart_hub/data/repo.dart';
+import 'package:dart_hub/model/date_utils.dart';
+import 'package:dart_hub/model/repo.dart';
 
 class Notif {
   final String id;

@@ -1,8 +1,8 @@
-import 'package:dart_hub/data/repo.dart';
-import 'package:dart_hub/manager/auth_manager.dart';
-import 'package:dart_hub/manager/base_paginator.dart';
-import 'package:dart_hub/manager/paginator_factory.dart';
-import 'package:dart_hub/ui/paginated_list_view.dart';
+import 'package:dart_hub/model/repo.dart';
+import 'package:dart_hub/interactor/manager/auth_manager.dart';
+import 'package:dart_hub/interactor/paginator/base_paginator.dart';
+import 'package:dart_hub/interactor/paginator/paginator_factory.dart';
+import 'package:dart_hub/ui/paginated_list/paginated_list_view.dart';
 
 class RepoListPaginator extends BasePaginator<Repo> {
 

@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'package:dart_hub/data/event.dart';
-import 'package:dart_hub/data/repo.dart';
-import 'package:dart_hub/manager/repo_manager.dart';
-import 'package:dart_hub/manager/event_paginator.dart';
-import 'package:dart_hub/ui/event_tile.dart';
-import 'package:dart_hub/ui/paginated_list_view.dart';
+import 'package:dart_hub/model/event.dart';
+import 'package:dart_hub/model/repo.dart';
+import 'package:dart_hub/interactor/manager/repo_manager.dart';
+import 'package:dart_hub/interactor/paginator/event_paginator.dart';
+import 'package:dart_hub/ui/tiles/event_tile.dart';
+import 'package:dart_hub/ui/paginated_list/paginated_list_view.dart';
 import 'package:flutter/material.dart';
 
 class RepoScreen extends StatefulWidget {
