@@ -152,8 +152,6 @@ class PaginatedListView<T> extends StatelessWidget {
             case ConnectionState.active:
             case ConnectionState.done:
               return _buildListView(context, snapshot.data);
-            default:
-              throw "Unknown: ${snapshot.connectionState}";
           }
         }
     );
