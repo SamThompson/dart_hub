@@ -39,11 +39,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         )
       ),
       new HomeScreenItem(
-        icon: const Icon(Icons.search),
-        title: const Text('Search'),
-        content: new SearchView(),
-      ),
-      new HomeScreenItem(
           icon: const Icon(Icons.notifications),
           title: const Text('Alerts'),
           content: new NotifView(new NotifPaginatorFactory(_authManager))
